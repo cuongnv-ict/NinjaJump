@@ -48,7 +48,7 @@ private :
     bool existBall;
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding;
     int jumpTimed;
-    Sprite *wallRight;
+    Sprite *wallRight, *wallLeft;
     Sprite *ninjaBound;
     Sprite *shield;
     Sprite *explosion;
