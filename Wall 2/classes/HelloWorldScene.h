@@ -40,12 +40,12 @@ private :
     cocos2d::Action * _actionRun;
     float _weight;
     float _height;
-    float margin;
     int _count_wait;
     int startPoint;
     bool existBall;
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding;
     int jumpTimed;
+
     Sprite *wallRight;
     Sprite * wallLeft;
     Sprite *shield;

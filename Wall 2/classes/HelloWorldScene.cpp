@@ -9,7 +9,6 @@ Scene* HelloWorld::createScene()
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
-
     // add layer as a child to scene
     scene->addChild(layer);
 
@@ -29,7 +28,7 @@ bool HelloWorld::init()
     this->setColor(cocos2d::Color3B(0,255,0));
     visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+    
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
@@ -42,7 +41,6 @@ bool HelloWorld::init()
     bg->setScaleY(visibleSize.height / bg->getContentSize().height);
     this->addChild(bg, -1);
     /////////////////////////////
-    // 3. add your codes below...
     // Add Wall
     {
         wallRight = Sprite::create("Wall.png");
@@ -66,7 +64,7 @@ bool HelloWorld::init()
         _listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(_listener, this);
     }
-    _count_wait = 3;
+    _count_wait = 2;
     existBall = false;
     _isFlying = false;
     _isDead = false;
@@ -80,6 +78,7 @@ bool HelloWorld::init()
     schedule(schedule_selector(HelloWorld::update),0.01);
     //schedule(schedule_selector(HelloWorld::setObstacles), 0.8);
     this->setObstacles();
+    this->gameOver();
     return true;
 }
 void HelloWorld::createGameScene(){
@@ -105,11 +104,11 @@ void HelloWorld::createGameScene(){
     shield->runAction(_swing);
     _isRunning = true;
     ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
-//    ninja->setTimeScale(2);
+    ninja->setTimeScale(2);
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
-    bodyShape.m_radius = 50/SCALE_RATIO;
+    bodyShape.m_radius = (0.15 * SIZE_NINJA)/SCALE_RATIO;
     fixtureDef.density=100;
     fixtureDef.friction=0.8;
     fixtureDef.restitution=0.6;
@@ -124,7 +123,7 @@ void HelloWorld::gameOver(){
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-    closeItem->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    closeItem->setPosition(Point(getContentSize().width - closeItem->getContentSize().width/2 - 10,closeItem->getContentSize().height/2 + 10));
     
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
@@ -161,7 +160,7 @@ void HelloWorld::update(float delta)
                     ninja->setAnimation(0, "die", false);
                     _isDead = true;
                     _isFlying = false;
-                    this->gameOver();
+//                    this->gameOver();
                     CCLOG("aaa");
                 }
                 if(_obstacle.at(i)->getTag() == ITEM_ONE){
@@ -332,10 +331,10 @@ void HelloWorld::setObstacles()
     switch (type) {
         case 0:
             setPositionBarRight(bar_one);
-            cloud_one->setPosition(Point(visibleSize.width/2,_count_wait * SIZE_LEVEL_HEIGHT - SIZE_LEVEL_HEIGHT/2 - visibleSize.height));
+            cloud_one->setPosition(Point(visibleSize.width/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
             cloud_one->runAction(MoveTo::create(3.5*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
-            thorns->setPosition(Point(SIZE_WALL_WIDTH,_count_wait * SIZE_LEVEL_HEIGHT - SIZE_LEVEL_HEIGHT/2 - visibleSize.height));
+            thorns->setPosition(Point(SIZE_WALL_WIDTH,_count_wait * visibleSize.height- visibleSize.height/2 - visibleSize.height/3));
             this->addChild(thorns,0);
             thorns->runAction(MoveTo::create(3.5*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
             if(arc4random()%100 > 75)
@@ -363,11 +362,11 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             cloud_one->setPosition(cocos2d::Point(getContentSize().width/2 - cloud_one->getContentSize().width,_count_wait * SIZE_LEVEL_HEIGHT - SIZE_LEVEL_HEIGHT/2));
             this->addChild(cloud_one,0);
-            cloud_one->runAction(MoveTo::create(2.5*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            cloud_one->runAction(MoveTo::create(3.5*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
             thorns->setRotation(180);
             thorns->setPosition(cocos2d::Point(getContentSize().width - SIZE_WALL_WIDTH, _count_wait * SIZE_LEVEL_HEIGHT - SIZE_LEVEL_HEIGHT/2 + thorns->getContentSize().height));
             this->addChild(thorns,0);
-            thorns->runAction(MoveTo::create(2.5*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns->runAction(MoveTo::create(3.5*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
             if(arc4random()%100 > 75)
             {
                 if(arc4random()%100 >= 80)
@@ -762,7 +761,7 @@ void HelloWorld::setPositionBarLeft(cocos2d::Sprite * bar)
     bar->setScaleX((getContentSize().width - 2 * SIZE_WALL_WIDTH - SIZE_SPACE)/bar->getContentSize().width);
     bar->setScaleY(SIZE_BAR_HEIGHT / bar->getContentSize().height);
     bar->setPosition(cocos2d::Point(SIZE_SPACE+SIZE_WALL_WIDTH,
-                                    _count_wait * SIZE_LEVEL_HEIGHT - visibleSize.height));
+                                    _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
     bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
@@ -771,7 +770,7 @@ void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
 {
     bar->setScaleX((getContentSize().width - 2 * SIZE_WALL_WIDTH - SIZE_SPACE)/bar->getContentSize().width);
     bar->setScaleY(SIZE_BAR_HEIGHT / bar->getContentSize().height);
-    bar->setPosition(Point(SIZE_WALL_WIDTH, _count_wait * SIZE_LEVEL_HEIGHT - visibleSize.height));
+    bar->setPosition(Point(SIZE_WALL_WIDTH, _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
     bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
