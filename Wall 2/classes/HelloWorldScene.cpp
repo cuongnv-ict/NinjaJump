@@ -105,7 +105,7 @@ void HelloWorld::createGameScene(){
     shield->runAction(_swing);
     _isRunning = true;
     ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
-    ninja->setTimeScale(2);
+//    ninja->setTimeScale(2);
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
@@ -198,7 +198,6 @@ void HelloWorld::update(float delta)
     int positionIterations = 10;
     int velocityIterations = 10;
     auto deltaTime = delta;
-//    shield->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
     explosion->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
 
     world->Step(deltaTime, velocityIterations, positionIterations);
@@ -251,7 +250,6 @@ float HelloWorld::radomValueBetween(float low,float height)
 bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
     if (!_isDead && !_isClouding) {
-        ninja->setTimeScale(2.0);
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
             if (_isMovingLeft) {
@@ -282,7 +280,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body->SetLinearVelocity(b2Vec2(15, 35));
                 ninja->setScaleX(1);
                 ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_Air", true);
+                ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = false;
             }
             if (ninja->getPositionX()>visibleSize.width/2) {
@@ -292,7 +290,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body->SetLinearVelocity(b2Vec2(-15, 35));
                 ninja->setScaleX(-1);
                 ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_Air", true);
+                ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = true;
             }
             _isRunning = false;
