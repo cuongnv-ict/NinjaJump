@@ -67,6 +67,7 @@ bool HelloWorld::init()
     }
     _level = 3.5;
     _count_wait = 2;
+    _isPlaying = false;
     existBall = false;
     _isFlying = false;
     _isDead = false;
@@ -133,6 +134,10 @@ void HelloWorld::gameOver(){
 }
 void HelloWorld::update(float delta)
 {
+    if(ninja->getPositionY()<= -100 && !_isDead){
+        this->gameOver();
+        _isDead = true;
+    }
     int sizeObs = _obstacle.size();
     if (_obstacle.at(sizeObs -1)->getPositionY() < visibleSize.height/2) {
         this->setObstacles();
@@ -183,12 +188,46 @@ void HelloWorld::update(float delta)
                     body->CreateFixture(&fixtureDef);
                     if(_isMovingLeft){
                         CCLOG("bbb");
-                        body->SetLinearVelocity(b2Vec2(15, 25));
-                        ninja->setScaleX(1);
+                        if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
+                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(-15, 25));
+                            }
+                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(-20, 5));
+                            }
+                            ninja->setScaleX(-1);
+
+                        }
+                        if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
+                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(15, 25));
+                            }
+                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(20, 5));
+                            }
+                            ninja->setScaleX(1);
+                        }
                     }
                     if (!_isMovingLeft) {
-                        body->SetLinearVelocity(b2Vec2(-15, 25));
-                        ninja->setScaleX(-1);
+                        if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
+                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(-15, 25));
+                            }
+                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(-20, 5));
+                            }
+                            ninja->setScaleX(-1);
+                            
+                        }
+                        if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
+                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(15, 25));
+                            }
+                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                body->SetLinearVelocity(b2Vec2(20, 5));
+                            }
+                            ninja->setScaleX(1);
+                        }
                     }
                     
                 }
