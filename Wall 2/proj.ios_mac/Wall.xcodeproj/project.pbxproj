@@ -26,7 +26,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		484899591A35A23E00818050 /* ball.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 484899581A35A23E00818050 /* ball.jpg */; };
-		485C6BAB1A2EDBC600EA8D8B /* MyParallax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 485C6BA91A2EDBC600EA8D8B /* MyParallax.cpp */; };
 		487341B21A30580E007271AD /* tuong.png in Resources */ = {isa = PBXBuildFile; fileRef = 487341B11A30580E007271AD /* tuong.png */; };
 		48D1A43B1A37F302008FC786 /* Full_action.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43A1A37F302008FC786 /* Full_action.plist */; };
 		48D1A43F1A37F30F008FC786 /* Full_action.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43E1A37F30F008FC786 /* Full_action.png */; };
@@ -332,9 +331,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		484899581A35A23E00818050 /* ball.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ball.jpg; sourceTree = "<group>"; };
-		485C6BA91A2EDBC600EA8D8B /* MyParallax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyParallax.cpp; path = ../Classes/MyParallax.cpp; sourceTree = "<group>"; };
-		485C6BAA1A2EDBC600EA8D8B /* MyParallax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyParallax.h; path = ../Classes/MyParallax.h; sourceTree = "<group>"; };
-		485C6BAD1A2EDD1A00EA8D8B /* PointObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointObject.h; path = ../Classes/PointObject.h; sourceTree = "<group>"; };
 		487341B11A30580E007271AD /* tuong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuong.png; sourceTree = "<group>"; };
 		48D1A43A1A37F302008FC786 /* Full_action.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Full_action.plist; sourceTree = "<group>"; };
 		48D1A43E1A37F30F008FC786 /* Full_action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Full_action.png; sourceTree = "<group>"; };
@@ -549,9 +545,6 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
-				485C6BA91A2EDBC600EA8D8B /* MyParallax.cpp */,
-				485C6BAA1A2EDBC600EA8D8B /* MyParallax.h */,
-				485C6BAD1A2EDD1A00EA8D8B /* PointObject.h */,
 				48D2F1831A5C513F00A9794B /* MyDefine.h */,
 				A73F2CED1A60A6C300BEA90E /* GLES-Render.cpp */,
 				A73F2CEE1A60A6C300BEA90E /* GLES-Render.h */,
@@ -1069,7 +1062,6 @@
 				A73F31A31A60AE3D00BEA90E /* SkinnedMeshAttachment.c in Sources */,
 				A73F317B1A60AE3D00BEA90E /* AttachmentLoader.c in Sources */,
 				A73F31811A60AE3D00BEA90E /* BoundingBoxAttachment.c in Sources */,
-				485C6BAB1A2EDBC600EA8D8B /* MyParallax.cpp in Sources */,
 				A73F31791A60AE3D00BEA90E /* Attachment.c in Sources */,
 				A73F31751A60AE3D00BEA90E /* Atlas.c in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,

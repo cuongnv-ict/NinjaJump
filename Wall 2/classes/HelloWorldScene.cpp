@@ -42,39 +42,21 @@ bool HelloWorld::init()
     bg->setScaleY(visibleSize.height / bg->getContentSize().height);
     this->addChild(bg, -1);
     /////////////////////////////
-    // 3. add your codes below...
-    wallRight = Sprite::create("Wall.png");
-    wallRight->setTag(2);
-    wallRight->setPosition(visibleSize.width, visibleSize.height/2);
-    this->addChild(wallRight, 0);
-    wallLeft = Sprite::create("Wall.png");
-    wallLeft->setTag(2);
-    wallLeft->setPosition(0, visibleSize.height/2);
-    this->addChild(wallLeft, 0);
-//    _background = MyParallax::create();
-//    //Add Wall
-//    {
-//        unsigned int _wall = 4;
-//        _background->setNumberWall(_wall);
-//        for (unsigned int i = 0; i < _wall; i++)
-//        {
-//            cocos2d::Sprite * _node_left = cocos2d::Sprite::create("Wall.png");
-//            cocos2d::Sprite * _node_right = cocos2d::Sprite::create("Wall.png");
-//            _node_left->setAnchorPoint(cocos2d::Point(0,0));
-//            _weight = SIZE_WALL_WIDTH;
-//            _height = (_weight * _node_left->getContentSize().height)/_node_left->getContentSize().width;
-//            _background->setOffsetHeight(_height);
-//            _node_left->setScale(SIZE_WALL_WIDTH/_node_left->getContentSize().width);
-//            _node_right->setAnchorPoint(cocos2d::Point(0,0));
-//            _node_right->setScale(SIZE_WALL_WIDTH/_node_right->getContentSize().width);
-//            _background->addChild(_node_left, radomValueBetween(-1,1), cocos2d::Point(0,1),
-//                                  cocos2d::Point(0,i * _height));
-//            _background->addChild(_node_right,radomValueBetween(-1, 1), cocos2d::Point(0,1),
-//                                  cocos2d::Point(visibleSize.width - SIZE_WALL_WIDTH,i * _height));
-//            margin = _node_left->getContentSize().width*_node_left->getScale();
-//
-//        }
-//    }
+    // Add Wall
+    {
+        wallRight = Sprite::create("Wall.png");
+        wallRight->setTag(2);
+        wallRight->setScaleX(SIZE_WALL_WIDTH/wallRight->getContentSize().width);
+        wallRight->setScaleY(getContentSize().height/wallRight->getContentSize().height);
+        wallRight->setPosition(getContentSize().width - SIZE_WALL_WIDTH/2,getContentSize().height/2);
+        this->addChild(wallRight, 0);
+        wallLeft = Sprite::create("Wall.png");
+        wallLeft->setTag(2);
+        wallLeft->setScaleX(-SIZE_WALL_WIDTH/wallLeft->getContentSize().width);
+        wallLeft->setScaleY(getContentSize().height/wallLeft->getContentSize().height);
+        wallLeft->setPosition(Point(SIZE_WALL_WIDTH/2,getContentSize().height/2));
+        this->addChild(wallLeft,0);
+    }
     
     //Event Tag Scence
     {
@@ -83,7 +65,6 @@ bool HelloWorld::init()
         _listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(_listener, this);
     }
-    //this->addChild(_background,-1);
     _count_wait = 2;
     existBall = false;
     _isFlying = false;
@@ -91,8 +72,8 @@ bool HelloWorld::init()
     b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
     world = new b2World(gravity);
     world->SetContactListener(this);
-    addWall(20 ,visibleSize.height ,0,(visibleSize.height / 2) ); //Trái
-    addWall(20 ,visibleSize.height ,visibleSize.width,(visibleSize.height / 2) ); // Phải
+    addWall(SIZE_WALL_WIDTH ,visibleSize.height ,SIZE_WALL_WIDTH/2,visibleSize.height / 2 ); //Trái
+    addWall(SIZE_WALL_WIDTH,visibleSize.height ,visibleSize.width - SIZE_WALL_WIDTH/2,visibleSize.height / 2); // Phải
     this->createGameScene();
     _obstacle = *new Vector<Sprite*>(3);
     schedule(schedule_selector(HelloWorld::update),0.01);
@@ -104,13 +85,13 @@ void HelloWorld::createGameScene(){
     _obstacle.clear();
     startPoint = 0;
     jumpTimed = 1;
-    ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.15f);
+    ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175f);
     ninja->setAnimation(0, "Run on Wall", true);
     
     shield = Sprite::create("circle.png");
-    //shield->setVisible(false);
-    shield->setPosition(ninja->getPosition());
-    this->addChild(shield, 0);
+    shield->setPosition(0,0.175 * 2 * SIZE_NINJA);
+    shield->setScale(0.65);
+    ninja->addChild(shield);
     
     explosion = Sprite::create("circle.png");
     explosion->setPosition(ninja->getPosition());
@@ -118,11 +99,12 @@ void HelloWorld::createGameScene(){
     explosion->runAction(FadeOut::create(0.0));
     this->addChild(explosion, 0);
     
-    FiniteTimeAction* _shield = Sequence::create(ScaleTo::create(0.25, 1.2), ScaleTo::create(0.25, 1) ,NULL);
+    FiniteTimeAction* _shield = Sequence::create(ScaleTo::create(0.3, 0.85), ScaleTo::create(0.3, 0.65) ,NULL);
     auto _swing = RepeatForever::create( (ActionInterval*) _shield );
     shield->runAction(_swing);
     _isRunning = true;
-    ninja->setPosition(margin+20, 200);
+    ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
+    ninja->setTimeScale(2);
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
@@ -215,7 +197,7 @@ void HelloWorld::update(float delta)
     int positionIterations = 10;
     int velocityIterations = 10;
     auto deltaTime = delta;
-    shield->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
+//    shield->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
     explosion->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
 
     world->Step(deltaTime, velocityIterations, positionIterations);
@@ -223,12 +205,12 @@ void HelloWorld::update(float delta)
     if (existBall) {
         if(ninja->getPositionX()>visibleSize.width/2){
             world->DestroyBody(body);
-            ninja->setPositionX(visibleSize.width - (margin +20));
+            ninja->setPositionX(visibleSize.width - (0.175 * SIZE_NINJA + SIZE_WALL_WIDTH));
             
         }
         if(ninja->getPositionX()<visibleSize.width/2){
             world->DestroyBody(body);
-            ninja->setPositionX(margin +20);
+            ninja->setPositionX(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH);
             
         }
         ninja->setBonesToSetupPose();

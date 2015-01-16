@@ -12,8 +12,10 @@
 #include <iostream>
 #define WAIT_THRONS 10
 #define SIZE_SPACE 250
-#define SIZE_BAR_HEIGHT 50
-#define SIZE_WALL_WIDTH 1
+#define SIZE_BAR_HEIGHT 25
+#define SIZE_WALL_WIDTH 12
+#define SIZE_NINJA 100
+#define NINJA_POSITION_Y 250
 #define OBSTACLES 1000
 #define DARTS 1001
 #define ITEM_ONE 1003

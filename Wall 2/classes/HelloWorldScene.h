@@ -2,7 +2,6 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "MyParallax.h"
 #include "Box2D/Box2D.h"
 #include "GLES-Render.h"
 #include "spine/spine-cocos2dx.h"
@@ -36,7 +35,6 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private :
-    MyParallax * _background;
     cocos2d::Sprite * _ball;
     cocos2d::Sprite * _ninja;
     cocos2d::Action * _actionRun;
@@ -48,8 +46,9 @@ private :
     bool existBall;
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding;
     int jumpTimed;
-    Sprite *wallRight, *wallLeft;
-    Sprite *ninjaBound;
+
+    Sprite *wallRight;
+    Sprite * wallLeft;
     Sprite *shield;
     Sprite *explosion;
     Size visibleSize;
@@ -59,10 +58,7 @@ private :
     b2FixtureDef fixtureDef;
     b2CircleShape bodyShape;
     SkeletonAnimation *ninja;
-    cocos2d::Vector<cocos2d::Sprite *> _obstacle;
-    cocos2d::Vector<cocos2d::Sprite *> _list_bar_one;
-    cocos2d::Vector<cocos2d::Sprite *> _list_bar_two;
-    
+    cocos2d::Vector<cocos2d::Sprite *> _obstacle;    
 
 };
 
