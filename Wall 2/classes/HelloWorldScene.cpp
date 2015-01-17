@@ -74,13 +74,11 @@ bool HelloWorld::init()
     world = new b2World(gravity);
     world->SetContactListener(this);
     addWall(SIZE_WALL_WIDTH ,visibleSize.height ,SIZE_WALL_WIDTH/2,visibleSize.height / 2 ); //Trái
-    addWall(SIZE_WALL_WIDTH,visibleSize.height ,visibleSize.width - SIZE_WALL_WIDTH/2,visibleSize.height / 2); // Phải
+    addWall(SIZE_WALL_WIDTH,visibleSize.height ,visibleSize.width - SIZE_WALL_WIDTH/2,visibleSize.height / 2);// Phải
     this->createGameScene();
     _obstacle = *new Vector<Sprite*>(3);
     schedule(schedule_selector(HelloWorld::update),0.01);
     //schedule(schedule_selector(HelloWorld::setObstacles), 0.8);
-    this->setObstacles();
-    this->gameOver();
     return true;
 }
 void HelloWorld::createGameScene(){
@@ -137,101 +135,104 @@ void HelloWorld::update(float delta)
         this->gameOver();
         _isDead = true;
     }
-    int sizeObs = _obstacle.size();
-    if (_obstacle.at(sizeObs -1)->getPositionY() < visibleSize.height/2) {
-        this->setObstacles();
-    }
-    //CCLOG("%d", a);
-    for (int i = startPoint; i<_obstacle.size(); i++) {
-        if (_obstacle.at(i) != NULL) {
-            if (_obstacle.at(i)->getPositionY()<=-200) {
-                startPoint += 1;
-            }
-            
-            if (ninja->getBoundingBox().intersectsRect(_obstacle.at(i)->getBoundingBox())&&!_isDead) {
-                if (shield->isVisible()) {
-                    if (_obstacle.at(i)->getTag() == DARTS || _obstacle.at(i)->getTag() == OBSTACLES) {
-                        _obstacle.at(i)->setTag(0);
-                        //shield->setVisible(false);
-                        _obstacle.at(i)->runAction(FadeOut::create(0.5));
-                    }
-                }
-                if(_obstacle.at(i)->getTag() == OBSTACLES || _obstacle.at(i)->getTag() == DARTS){
-                    bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-                    body = world->CreateBody(&bodyDef);
-                    body->SetGravityScale(8);
-                    body->CreateFixture(&fixtureDef);
-                    body->SetLinearVelocity(b2Vec2(0, 0));
-                    ninja->setAnimation(0, "die", false);
-                    _isDead = true;
-                    _isFlying = false;
-//                    this->gameOver();
-                    CCLOG("aaa");
-                }
-                if(_obstacle.at(i)->getTag() == ITEM_ONE){
-                    shield->setVisible(true);
-                }
-                if(_obstacle.at(i)->getTag() == ITEM_TWO){
-//                    _obstacle.at(i)->setTag(0);
-//                    explosion->runAction(FadeIn::create(0.5));
-//                    explosion->runAction(ScaleTo::create(0.5, 5));
-                }
-                if (_obstacle.at(i)->getTag() == CLOUDS && _isFlying && !_isClouding) {
-                    _obstacle.at(i)->runAction(Sequence::create(ScaleTo::create(0.1, 1.1), ScaleTo::create(0.1, 1.0), NULL));
-                    jumpTimed = 0;
-                    _isClouding = true;
-                    world->DestroyBody(body);
-                    bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-                    body = world->CreateBody(&bodyDef);
-                    body->SetGravityScale(8);
-                    body->CreateFixture(&fixtureDef);
-                    if(_isMovingLeft){
-                        CCLOG("bbb");
-                        if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
-                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(-15, 25));
-                            }
-                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(-20, 5));
-                            }
-                            ninja->setScaleX(-1);
-
-                        }
-                        if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
-                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(15, 25));
-                            }
-                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(20, 5));
-                            }
-                            ninja->setScaleX(1);
-                        }
-                    }
-                    if (!_isMovingLeft) {
-                        if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
-                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(-15, 25));
-                            }
-                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(-20, 5));
-                            }
-                            ninja->setScaleX(-1);
-                            
-                        }
-                        if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
-                            if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(15, 25));
-                            }
-                            if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                body->SetLinearVelocity(b2Vec2(20, 5));
-                            }
-                            ninja->setScaleX(1);
-                        }
-                    }
-                    
-                }
-            }
+    if (_isPlaying) {
+        int sizeObs = _obstacle.size();
+        if (_obstacle.at(sizeObs -1)->getPositionY() < visibleSize.height/2) {
+            this->setObstacles();
         }
+        //CCLOG("%d", a);
+        for (int i = startPoint; i<_obstacle.size(); i++) {
+            if (_obstacle.at(i) != NULL) {
+                if (_obstacle.at(i)->getPositionY()<=-200) {
+                    startPoint += 1;
+                }
+                
+                if (ninja->getBoundingBox().intersectsRect(_obstacle.at(i)->getBoundingBox())&&!_isDead) {
+                    if (shield->isVisible()) {
+                        if (_obstacle.at(i)->getTag() == DARTS || _obstacle.at(i)->getTag() == OBSTACLES) {
+                            _obstacle.at(i)->setTag(0);
+                            //shield->setVisible(false);
+                            _obstacle.at(i)->runAction(FadeOut::create(0.5));
+                        }
+                    }
+                    if(_obstacle.at(i)->getTag() == OBSTACLES || _obstacle.at(i)->getTag() == DARTS){
+                        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
+                        body = world->CreateBody(&bodyDef);
+                        body->SetGravityScale(8);
+                        body->CreateFixture(&fixtureDef);
+                        body->SetLinearVelocity(b2Vec2(0, 0));
+                        ninja->setAnimation(0, "die", false);
+                        _isDead = true;
+                        _isFlying = false;
+                        this->gameOver();
+                        CCLOG("aaa");
+                    }
+                    if(_obstacle.at(i)->getTag() == ITEM_ONE){
+                        shield->setVisible(true);
+                    }
+                    if(_obstacle.at(i)->getTag() == ITEM_TWO){
+                        //                    _obstacle.at(i)->setTag(0);
+                        //                    explosion->runAction(FadeIn::create(0.5));
+                        //                    explosion->runAction(ScaleTo::create(0.5, 5));
+                    }
+                    if (_obstacle.at(i)->getTag() == CLOUDS && _isFlying && !_isClouding) {
+                        _obstacle.at(i)->runAction(Sequence::create(ScaleTo::create(0.1, 1.1), ScaleTo::create(0.1, 1.0), NULL));
+                        jumpTimed = 0;
+                        _isClouding = true;
+                        world->DestroyBody(body);
+                        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
+                        body = world->CreateBody(&bodyDef);
+                        body->SetGravityScale(8);
+                        body->CreateFixture(&fixtureDef);
+                        if(_isMovingLeft){
+                            CCLOG("bbb");
+                            if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
+                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(-15, 25));
+                                }
+                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(-20, 5));
+                                }
+                                ninja->setScaleX(-1);
+                                
+                            }
+                            if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
+                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(15, 25));
+                                }
+                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(20, 5));
+                                }
+                                ninja->setScaleX(1);
+                            }
+                        }
+                        if (!_isMovingLeft) {
+                            if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
+                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(-15, 25));
+                                }
+                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(-20, 5));
+                                }
+                                ninja->setScaleX(-1);
+                                
+                            }
+                            if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
+                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(15, 25));
+                                }
+                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
+                                    body->SetLinearVelocity(b2Vec2(20, 5));
+                                }
+                                ninja->setScaleX(1);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+    }
+    
     }
     int positionIterations = 10;
     int velocityIterations = 10;
@@ -290,6 +291,10 @@ float HelloWorld::radomValueBetween(float low,float height)
 }
 bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
+    if (!_isPlaying) {
+        this->setObstacles();
+        _isPlaying = true;
+    }
     if (!_isDead && !_isClouding) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
