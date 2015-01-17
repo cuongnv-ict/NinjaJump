@@ -154,7 +154,7 @@ void HelloWorld::update(float delta)
                     if (shield->isVisible()) {
                         if (_obstacle.at(i)->getTag() == DARTS || _obstacle.at(i)->getTag() == OBSTACLES) {
                             _obstacle.at(i)->setTag(0);
-                            //shield->setVisible(false);
+                            shield->setVisible(false);
                             _obstacle.at(i)->runAction(FadeOut::create(0.5));
                         }
                     }
@@ -172,6 +172,8 @@ void HelloWorld::update(float delta)
                     }
                     if(_obstacle.at(i)->getTag() == ITEM_ONE){
                         shield->setVisible(true);
+                        _obstacle.at(i)->runAction(FadeOut::create(0.5));
+                        _obstacle.at(i)->setTag(0);
                     }
                     if(_obstacle.at(i)->getTag() == ITEM_TWO){
                         //                    _obstacle.at(i)->setTag(0);
