@@ -9,7 +9,6 @@ Scene* HelloWorld::createScene()
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
-
     // add layer as a child to scene
     scene->addChild(layer);
 
@@ -29,18 +28,26 @@ bool HelloWorld::init()
     this->setColor(cocos2d::Color3B(0,255,0));
     visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+    
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-
-    cocos2d::Sprite * bg = cocos2d::Sprite::create("Floor.png");
-    bg->setAnchorPoint(cocos2d::Point(0,0));
-    bg->setScaleX(visibleSize.width / bg->getContentSize().width);
-    bg->setScaleY(visibleSize.height / bg->getContentSize().height);
-    this->addChild(bg, -1);
+    //Hình nền
+    floorRed = cocos2d::Sprite::create("Floor.png");
+    floorRed->setAnchorPoint(cocos2d::Point(0,0));
+    floorRed->runAction(FadeOut::create(0.0));
+    floorRed->setScaleX(visibleSize.width / floorRed->getContentSize().width);
+    floorRed->setScaleY(visibleSize.height / floorRed->getContentSize().height);
+    this->addChild(floorRed, -1);
+    
+    floorGreen = cocos2d::Sprite::create("floorGreen.png");
+    floorGreen->setAnchorPoint(cocos2d::Point(0,0));
+    floorGreen->setScaleX(visibleSize.width / floorGreen->getContentSize().width);
+    floorGreen->setScaleY(visibleSize.height / floorGreen->getContentSize().height);
+    this->addChild(floorGreen, -1);
+    /////////////////////////////
     /////////////////////////////
     // Add Wall
     {
@@ -65,7 +72,9 @@ bool HelloWorld::init()
         _listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(_listener, this);
     }
-    _level = 3.5;
+    _upLevelWait = 0;
+    _score = 0;
+    _level = 5.0;
     _count_wait = 2;
     _isPlaying = false;
     existBall = false;
@@ -80,7 +89,6 @@ bool HelloWorld::init()
     _obstacle = *new Vector<Sprite*>(3);
     schedule(schedule_selector(HelloWorld::update),0.01);
     //schedule(schedule_selector(HelloWorld::setObstacles), 0.8);
-    //this->setObstacles();
     return true;
 }
 void HelloWorld::createGameScene(){
@@ -89,7 +97,7 @@ void HelloWorld::createGameScene(){
     jumpTimed = 1;
     ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175f);
     ninja->setAnimation(0, "Run on Wall", true);
-    
+    ninja->setTimeScale(1);
     shield = Sprite::create("circle.png");
     shield->setPosition(0,0.175 * 2 * SIZE_NINJA);
     shield->setScale(0.65);
@@ -106,11 +114,10 @@ void HelloWorld::createGameScene(){
     shield->runAction(_swing);
     _isRunning = true;
     ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
-    ninja->setTimeScale(1);
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
-    bodyShape.m_radius = 30/SCALE_RATIO;
+    bodyShape.m_radius = (0.15 * SIZE_NINJA)/SCALE_RATIO;
     fixtureDef.density=100;
     fixtureDef.friction=0.8;
     fixtureDef.restitution=0.6;
@@ -125,15 +132,33 @@ void HelloWorld::gameOver(){
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-    closeItem->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    closeItem->setPosition(Point(getContentSize().width - closeItem->getContentSize().width/2 - 10,closeItem->getContentSize().height/2 + 10));
     
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 }
+void HelloWorld::levelUp(){
+    if (_level == 3.5) {
+        floorGreen->runAction(FadeOut::create(1.0));
+        floorRed->runAction(FadeIn::create(1.0));
+        _upLevelWait = 240;
+        _level = 3.25;
+    }
+    if (_level == 3.25) {
+        _upLevelWait = 240;
+        _level = 3.0;
+    }
+}
 void HelloWorld::update(float delta)
 {
+    if (_upLevelWait > 0) {
+        _upLevelWait --;
+    }
+    if (_score>15&&_level==3.5) {
+        this->levelUp();
+    }
     if(ninja->getPositionY()<= -100 && !_isDead){
         this->gameOver();
         _isDead = true;
@@ -141,7 +166,9 @@ void HelloWorld::update(float delta)
     if (_isPlaying) {
         int sizeObs = _obstacle.size();
         if (_obstacle.at(sizeObs -1)->getPositionY() < visibleSize.height/2) {
-            this->setObstacles();
+            if (_upLevelWait == 0) {
+                this->setObstacles();
+            }
         }
         //CCLOG("%d", a);
         for (int i = startPoint; i<_obstacle.size(); i++) {
@@ -242,7 +269,6 @@ void HelloWorld::update(float delta)
     int positionIterations = 10;
     int velocityIterations = 10;
     auto deltaTime = delta;
-//    shield->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
     explosion->setPosition(Point(ninja->getPositionX(), ninja->getPositionY() + 40 ));
 
     world->Step(deltaTime, velocityIterations, positionIterations);
@@ -266,8 +292,11 @@ void HelloWorld::update(float delta)
     if (_isFlying||_isDead) {
         ninja->setPosition(body->GetPosition().x*SCALE_RATIO, body->GetPosition().y*SCALE_RATIO);
     }
-    if(_isRunning&&ninja->getPositionY()>=200){
-        ninja->setPositionY(ninja->getPositionY() -2);
+    if(_isRunning&&ninja->getPositionY() >  NINJA_POSITION_Y){
+        ninja->setPositionY(ninja->getPositionY() - 2);
+    }
+    if(_isRunning&&ninja->getPositionY() <  NINJA_POSITION_Y -2){
+        ninja->setPositionY(ninja->getPositionY() + 2);
     }
     world->ClearForces();
     world->DrawDebugData();
@@ -298,7 +327,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         this->setObstacles();
         _isPlaying = true;
     }
-    if (!_isDead && !_isClouding) {
+    if (!_isDead && !_isClouding && jumpTimed == 1) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
             if (_isMovingLeft) {
@@ -329,7 +358,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body->SetLinearVelocity(b2Vec2(15, 35));
                 ninja->setScaleX(1);
                 ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_wall", false);
+                ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = false;
             }
             if (ninja->getPositionX()>visibleSize.width/2) {
@@ -339,7 +368,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body->SetLinearVelocity(b2Vec2(-15, 35));
                 ninja->setScaleX(-1);
                 ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_wall", false);
+                ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = true;
             }
             _isRunning = false;
@@ -813,7 +842,7 @@ void HelloWorld::setPositionBarLeft(cocos2d::Sprite * bar)
     bar->setPosition(cocos2d::Point(SIZE_SPACE+SIZE_WALL_WIDTH,
                                     _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
-    bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
+    bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
 }
 void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
@@ -822,7 +851,7 @@ void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
     bar->setScaleY(SIZE_BAR_HEIGHT / bar->getContentSize().height);
     bar->setPosition(Point(SIZE_WALL_WIDTH, _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
-    bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
+    bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
 }
 
@@ -853,6 +882,7 @@ void HelloWorld::BeginContact(b2Contact *contact){
                 jumpTimed = 1;
 
             }
+            _score ++;
         }
     }
 }
