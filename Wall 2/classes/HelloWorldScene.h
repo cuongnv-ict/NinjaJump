@@ -31,6 +31,7 @@ public:
     void gameOver();
     void levelUp();
     void addWall(float w, float h, float px, float py);
+    void addNinja();
     virtual void BeginContact(b2Contact* contact);
     virtual void EndContact(b2Contact* contact);
     // implement the "static create()" method manually
@@ -52,6 +53,7 @@ private :
 
     Sprite *floorRed;
     Sprite *floorGreen;
+    Sprite *floorBlue;
     Sprite *wallRight;
     Sprite * wallLeft;
     Sprite *shield;
@@ -63,7 +65,7 @@ private :
     b2FixtureDef fixtureDef;
     b2CircleShape bodyShape;
     SkeletonAnimation *ninja;
-    cocos2d::Vector<cocos2d::Sprite *> _obstacle;    
+    cocos2d::Vector<cocos2d::Node *> _obstacle;
 
 };
 
