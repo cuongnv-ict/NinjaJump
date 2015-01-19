@@ -147,6 +147,20 @@
 		A73F31B21A60AEE100BEA90E /* skeleton.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F31AD1A60AEE100BEA90E /* skeleton.png */; };
 		A73F31B31A60AEE100BEA90E /* skeleton.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F31AD1A60AEE100BEA90E /* skeleton.png */; };
 		A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A74D5A201A6A0D9B00752B03 /* floorGreen.png */; };
+		A7DE6C991A6D3917009BD41D /* Backgroun_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */; };
+		A7DE6C9A1A6D3917009BD41D /* ban.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8C1A6D3917009BD41D /* ban.mp3 */; };
+		A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */; };
+		A7DE6C9C1A6D3917009BD41D /* Button_menu_on.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8E1A6D3917009BD41D /* Button_menu_on.mp3 */; };
+		A7DE6C9D1A6D3917009BD41D /* day bay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8F1A6D3917009BD41D /* day bay.mp3 */; };
+		A7DE6C9E1A6D3917009BD41D /* Dinh tuong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C901A6D3917009BD41D /* Dinh tuong.mp3 */; };
+		A7DE6C9F1A6D3917009BD41D /* Fly_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C911A6D3917009BD41D /* Fly_sound.mp3 */; };
+		A7DE6CA01A6D3917009BD41D /* Game over_bg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C921A6D3917009BD41D /* Game over_bg.mp3 */; };
+		A7DE6CA11A6D3917009BD41D /* ngam muc tieu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C931A6D3917009BD41D /* ngam muc tieu.mp3 */; };
+		A7DE6CA21A6D3917009BD41D /* Ninja_jump_down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C941A6D3917009BD41D /* Ninja_jump_down.mp3 */; };
+		A7DE6CA31A6D3917009BD41D /* Ninja_jump_down_voice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C951A6D3917009BD41D /* Ninja_jump_down_voice.mp3 */; };
+		A7DE6CA41A6D3917009BD41D /* Ninja_jump_up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C961A6D3917009BD41D /* Ninja_jump_up.mp3 */; };
+		A7DE6CA51A6D3917009BD41D /* Ninja_run.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C971A6D3917009BD41D /* Ninja_run.mp3 */; };
+		A7DE6CA61A6D3917009BD41D /* Ninja_tiep dat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C981A6D3917009BD41D /* Ninja_tiep dat.mp3 */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -430,6 +444,20 @@
 		A73F31AC1A60AEE100BEA90E /* skeleton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skeleton.json; sourceTree = "<group>"; };
 		A73F31AD1A60AEE100BEA90E /* skeleton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton.png; sourceTree = "<group>"; };
 		A74D5A201A6A0D9B00752B03 /* floorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floorGreen.png; sourceTree = "<group>"; };
+		A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Backgroun_music.mp3; sourceTree = "<group>"; };
+		A7DE6C8C1A6D3917009BD41D /* ban.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ban.mp3; sourceTree = "<group>"; };
+		A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Button_menu_off.mp3; sourceTree = "<group>"; };
+		A7DE6C8E1A6D3917009BD41D /* Button_menu_on.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Button_menu_on.mp3; sourceTree = "<group>"; };
+		A7DE6C8F1A6D3917009BD41D /* day bay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "day bay.mp3"; sourceTree = "<group>"; };
+		A7DE6C901A6D3917009BD41D /* Dinh tuong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dinh tuong.mp3"; sourceTree = "<group>"; };
+		A7DE6C911A6D3917009BD41D /* Fly_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Fly_sound.mp3; sourceTree = "<group>"; };
+		A7DE6C921A6D3917009BD41D /* Game over_bg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Game over_bg.mp3"; sourceTree = "<group>"; };
+		A7DE6C931A6D3917009BD41D /* ngam muc tieu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ngam muc tieu.mp3"; sourceTree = "<group>"; };
+		A7DE6C941A6D3917009BD41D /* Ninja_jump_down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ninja_jump_down.mp3; sourceTree = "<group>"; };
+		A7DE6C951A6D3917009BD41D /* Ninja_jump_down_voice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ninja_jump_down_voice.mp3; sourceTree = "<group>"; };
+		A7DE6C961A6D3917009BD41D /* Ninja_jump_up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ninja_jump_up.mp3; sourceTree = "<group>"; };
+		A7DE6C971A6D3917009BD41D /* Ninja_run.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ninja_run.mp3; sourceTree = "<group>"; };
+		A7DE6C981A6D3917009BD41D /* Ninja_tiep dat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ninja_tiep dat.mp3"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -637,6 +665,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7DE6C8A1A6D3917009BD41D /* Ninja game sound */,
 				48D2F1851A5C5C5A00A9794B /* Chong.png */,
 				A74D5A201A6A0D9B00752B03 /* floorGreen.png */,
 				A7146EA81A6215DE003D3C45 /* circle.png */,
@@ -749,6 +778,27 @@
 			);
 			name = spine;
 			path = "../cocos2d/cocos/editor-support/spine";
+			sourceTree = "<group>";
+		};
+		A7DE6C8A1A6D3917009BD41D /* Ninja game sound */ = {
+			isa = PBXGroup;
+			children = (
+				A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */,
+				A7DE6C8C1A6D3917009BD41D /* ban.mp3 */,
+				A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */,
+				A7DE6C8E1A6D3917009BD41D /* Button_menu_on.mp3 */,
+				A7DE6C8F1A6D3917009BD41D /* day bay.mp3 */,
+				A7DE6C901A6D3917009BD41D /* Dinh tuong.mp3 */,
+				A7DE6C911A6D3917009BD41D /* Fly_sound.mp3 */,
+				A7DE6C921A6D3917009BD41D /* Game over_bg.mp3 */,
+				A7DE6C931A6D3917009BD41D /* ngam muc tieu.mp3 */,
+				A7DE6C941A6D3917009BD41D /* Ninja_jump_down.mp3 */,
+				A7DE6C951A6D3917009BD41D /* Ninja_jump_down_voice.mp3 */,
+				A7DE6C961A6D3917009BD41D /* Ninja_jump_up.mp3 */,
+				A7DE6C971A6D3917009BD41D /* Ninja_run.mp3 */,
+				A7DE6C981A6D3917009BD41D /* Ninja_tiep dat.mp3 */,
+			);
+			path = "Ninja game sound";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -915,6 +965,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7DE6C9A1A6D3917009BD41D /* ban.mp3 in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
@@ -924,25 +975,36 @@
 				48D2F1BA1A5C5C5B00A9794B /* Item.png in Resources */,
 				A7146EA51A6215D0003D3C45 /* blank.png in Resources */,
 				487341B21A30580E007271AD /* tuong.png in Resources */,
+				A7DE6CA61A6D3917009BD41D /* Ninja_tiep dat.mp3 in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				A7DE6CA01A6D3917009BD41D /* Game over_bg.mp3 in Resources */,
 				A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				48D2F1BC1A5C5C5B00A9794B /* Ninja.png in Resources */,
+				A7DE6C9D1A6D3917009BD41D /* day bay.mp3 in Resources */,
 				48D2F1A51A5C5C5B00A9794B /* Marker Felt.ttf in Resources */,
 				48D2F1A41A5C5C5B00A9794B /* Floor.png in Resources */,
+				A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */,
 				48D2F1BE1A5C5C5B00A9794B /* Wall.png in Resources */,
 				A73F31B21A60AEE100BEA90E /* skeleton.png in Resources */,
+				A7DE6C9C1A6D3917009BD41D /* Button_menu_on.mp3 in Resources */,
 				A7146EA91A6215DE003D3C45 /* circle.png in Resources */,
+				A7DE6CA51A6D3917009BD41D /* Ninja_run.mp3 in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
+				A7DE6C9E1A6D3917009BD41D /* Dinh tuong.mp3 in Resources */,
+				A7DE6CA41A6D3917009BD41D /* Ninja_jump_up.mp3 in Resources */,
 				A73F31B01A60AEE100BEA90E /* skeleton.json in Resources */,
 				48D2F1BF1A5C5C5B00A9794B /* Xa.png in Resources */,
+				A7DE6CA31A6D3917009BD41D /* Ninja_jump_down_voice.mp3 in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
 				484899591A35A23E00818050 /* ball.jpg in Resources */,
+				A7DE6C9F1A6D3917009BD41D /* Fly_sound.mp3 in Resources */,
 				A73F31AE1A60AEE100BEA90E /* skeleton.atlas in Resources */,
 				48D1A43F1A37F30F008FC786 /* Full_action.png in Resources */,
+				A7DE6CA11A6D3917009BD41D /* ngam muc tieu.mp3 in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				48D2F1BD1A5C5C5B00A9794B /* Phi-tieu.png in Resources */,
 				48D2F1BB1A5C5C5B00A9794B /* May.png in Resources */,
@@ -952,7 +1014,9 @@
 				A703C7E31A6A462B00ABED2B /* floorBlue.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				A7DE6C991A6D3917009BD41D /* Backgroun_music.mp3 in Resources */,
 				48D2F1B91A5C5C5B00A9794B /* Full_action.tps in Resources */,
+				A7DE6CA21A6D3917009BD41D /* Ninja_jump_down.mp3 in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);

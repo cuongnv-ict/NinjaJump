@@ -43,6 +43,7 @@ private :
     float _level;
     float _weight;
     float _height;
+    int numType;
     int _score;
     int _upLevelWait;
     int _count_wait;
