@@ -194,7 +194,7 @@ void HelloWorld::update(float delta)
                     if (shield->isVisible()) {
                         if (_obstacle.at(i)->getTag() == DARTS || _obstacle.at(i)->getTag() == OBSTACLES) {
                             _obstacle.at(i)->setTag(0);
-                            shield->setVisible(false);
+                            //shield->setVisible(false);
                             _obstacle.at(i)->runAction(FadeOut::create(0.5));
                         }
                     }
@@ -341,6 +341,10 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         _isPlaying = true;
     }
     auto touchPos = touch->getLocation();
+    if (jumpTimed == 0) {
+        CCLOG("out of Jump");
+        return true;
+    }
     if (!_isDead && !_isClouding && jumpTimed == 1) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
@@ -406,6 +410,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         _isFlying = true;
     }
     
+    
     return true;
 }
 void HelloWorld::setObstacles()
@@ -415,7 +420,6 @@ void HelloWorld::setObstacles()
     cocos2d::Sprite * thorns = cocos2d::Sprite::create("Chong.png");
     cocos2d::Sprite * cloud_one = cocos2d::Sprite::create("May.png");
     cocos2d::Sprite * cloud_two = cocos2d::Sprite::create("May.png");
-    cocos2d::Sprite * darts = cocos2d::Sprite::create("Phi-tieu.png");
     cocos2d::Sprite * item_one = cocos2d::Sprite::create("ball.jpg");
     cocos2d::Sprite * item_two = cocos2d::Sprite::create("Item.png");
     bar_one->setAnchorPoint(cocos2d::Point(0,0));
@@ -423,7 +427,6 @@ void HelloWorld::setObstacles()
     thorns->setAnchorPoint(cocos2d::Point(0,0));
     cloud_one->setAnchorPoint(cocos2d::Point(0,0));
     cloud_two->setAnchorPoint(cocos2d::Point(0,0));
-    darts->setAnchorPoint(cocos2d::Point(0,0));
     item_one->setAnchorPoint(cocos2d::Point(0,0));
     item_two->setAnchorPoint(cocos2d::Point(0,0));
     bar_one->setTag(OBSTACLES);
@@ -431,7 +434,6 @@ void HelloWorld::setObstacles()
     thorns->setTag(OBSTACLES);
     cloud_one->setTag(CLOUDS);
     cloud_two->setTag(CLOUDS);
-    darts->setTag(DARTS);
     item_one->setTag(ITEM_ONE);
     item_two->setTag(ITEM_TWO);
     unsigned int type = arc4random() % 12;
@@ -502,9 +504,6 @@ void HelloWorld::setObstacles()
             thorns->setPosition(cocos2d::Point(getContentSize().width - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns->getContentSize().height));
             thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
             this->addChild(thorns,0);
-            darts->setPosition(cocos2d::Point(getContentSize().width/2 - darts->getContentSize().width,_count_wait * visibleSize.height - visibleSize.height/2 - darts->getContentSize().height));
-            darts->runAction(MoveTo::create(_level*(darts->getPositionY()/visibleSize.height), Point(darts->getPositionX(), -200)));
-            this->addChild(darts,0);
             if(arc4random()%100 > 75)
             {
                 if(arc4random()%2 == 0)
@@ -544,7 +543,6 @@ void HelloWorld::setObstacles()
                 }
             }
             _obstacle.pushBack(thorns);
-            _obstacle.pushBack(darts);
             _obstacle.pushBack(bar_one);
             break;
         case 3:
@@ -552,11 +550,6 @@ void HelloWorld::setObstacles()
             thorns->setPosition(cocos2d::Point(SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
             this->addChild(thorns,0);
-            
-            darts->setPosition(cocos2d::Point(getContentSize().width/2,_count_wait * visibleSize.height - visibleSize.height/2 - darts->getContentSize().height));
-            darts->runAction(MoveTo::create(_level*(darts->getPositionY()/visibleSize.height), Point(darts->getPositionX(), -200)));
-            this->addChild(darts,0);
-            
             if(arc4random()%100 > 75)
             {
                 if(arc4random()%2 == 0)
@@ -596,7 +589,6 @@ void HelloWorld::setObstacles()
                 }
             }
             _obstacle.pushBack(thorns);
-            _obstacle.pushBack(darts);
             _obstacle.pushBack(bar_one);
             break;
         case 4:
@@ -656,9 +648,6 @@ void HelloWorld::setObstacles()
             break;
         case 6:
             setPositionBarRight(bar_one);
-            darts->setPosition(cocos2d::Point(getContentSize().width/2 - darts->getContentSize().width,_count_wait * visibleSize.height - visibleSize.height/2 - darts->getContentSize().height));
-            darts->runAction(MoveTo::create(_level*(darts->getPositionY()/visibleSize.height), Point(darts->getPositionX(), -200)));
-            this->addChild(darts,0);
             if(arc4random()%100 > 75)
             {
                 if(arc4random()%2 == 0)
@@ -697,15 +686,11 @@ void HelloWorld::setObstacles()
                     
                 }
             }
-            _obstacle.pushBack(darts);
             _obstacle.pushBack(bar_one);
 
             break;
         case 7:
             setPositionBarLeft(bar_one);
-            darts->setPosition(cocos2d::Point(getContentSize().width/2,_count_wait * visibleSize.height - visibleSize.height/2 - darts->getContentSize().height));
-            darts->runAction(MoveTo::create(_level*(darts->getPositionY()/visibleSize.height), Point(darts->getPositionX(), -200)));
-            this->addChild(darts,0);
             if(arc4random()%100 > 75)
             {
                 if(arc4random()%2 == 0)
@@ -746,7 +731,6 @@ void HelloWorld::setObstacles()
                     
                 }
             }
-            _obstacle.pushBack(darts);
             _obstacle.pushBack(bar_one);
             break;
         case 8:
