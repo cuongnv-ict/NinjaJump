@@ -17,7 +17,6 @@
 #define SIZE_NINJA 100
 #define NINJA_POSITION_Y 200
 #define OBSTACLES 1000
-#define DARTS 1001
 #define ITEM_ONE 1003
 #define ITEM_TWO 1004
 #define CLOUDS 1002
