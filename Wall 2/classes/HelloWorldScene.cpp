@@ -296,8 +296,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         _isPlaying = true;
     }
     if (!_isDead && !_isClouding) {
-        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
+            bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
+            auto positionTag = touch->getLocation();
             if (_isMovingLeft) {
                 world->DestroyBody(body);
                 body = world->CreateBody(&bodyDef);
@@ -315,10 +316,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 jumpTimed = 0;
             }
         }
-        if (_isRunning) {
-            
+        if (_isRunning ) {
+            bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
             body = world->CreateBody(&bodyDef);
-            
             if (ninja->getPositionX()<visibleSize.width/2) {
                 fixtureDef.density = 0;
                 body->CreateFixture(&fixtureDef);
@@ -858,6 +858,5 @@ void HelloWorld::EndContact(b2Contact *contact){
 }
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
-    Director::getInstance()->replaceScene
-    (TransitionZoomFlipX::create(0.5, this->createScene()));
+    Director::getInstance()->replaceScene(TransitionZoomFlipX::create(0.5, HelloWorld::createScene()));
 }
