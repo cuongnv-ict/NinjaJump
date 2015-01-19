@@ -52,6 +52,7 @@ private :
 
     Sprite *floorRed;
     Sprite *floorGreen;
+    Sprite *floorBlue;
     Sprite *wallRight;
     Sprite * wallLeft;
     Sprite *shield;

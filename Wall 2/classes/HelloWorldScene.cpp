@@ -42,6 +42,13 @@ bool HelloWorld::init()
     floorRed->setScaleY(visibleSize.height / floorRed->getContentSize().height);
     this->addChild(floorRed, -1);
     
+    floorBlue = cocos2d::Sprite::create("floorBlue.png");
+    floorBlue->setAnchorPoint(cocos2d::Point(0,0));
+    floorBlue->runAction(FadeOut::create(0.0));
+    floorBlue->setScaleX(visibleSize.width / floorBlue->getContentSize().width);
+    floorBlue->setScaleY(visibleSize.height / floorBlue->getContentSize().height);
+    this->addChild(floorBlue, -1);
+    
     floorGreen = cocos2d::Sprite::create("floorGreen.png");
     floorGreen->setAnchorPoint(cocos2d::Point(0,0));
     floorGreen->setScaleX(visibleSize.width / floorGreen->getContentSize().width);
@@ -74,7 +81,7 @@ bool HelloWorld::init()
     }
     _upLevelWait = 0;
     _score = 0;
-    _level = 5.0;
+    _level = 3.5;
     _count_wait = 2;
     _isPlaying = false;
     existBall = false;
@@ -142,11 +149,14 @@ void HelloWorld::gameOver(){
 void HelloWorld::levelUp(){
     if (_level == 3.5) {
         floorGreen->runAction(FadeOut::create(1.0));
-        floorRed->runAction(FadeIn::create(1.0));
+        floorBlue->runAction(FadeIn::create(1.0));
         _upLevelWait = 240;
         _level = 3.25;
     }
-    if (_level == 3.25) {
+    
+    else if (_level == 3.25) {
+        floorBlue->runAction(FadeOut::create(1.0));
+        floorRed->runAction(FadeIn::create(1.0));
         _upLevelWait = 240;
         _level = 3.0;
     }
@@ -157,6 +167,9 @@ void HelloWorld::update(float delta)
         _upLevelWait --;
     }
     if (_score>15&&_level==3.5) {
+        this->levelUp();
+    }
+    if (_score>30&&_level==3.25) {
         this->levelUp();
     }
     if(ninja->getPositionY()<= -100 && !_isDead){
@@ -327,6 +340,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         this->setObstacles();
         _isPlaying = true;
     }
+    auto touchPos = touch->getLocation();
     if (!_isDead && !_isClouding && jumpTimed == 1) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
@@ -335,7 +349,15 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body = world->CreateBody(&bodyDef);
                 body->SetGravityScale(12);
                 body->CreateFixture(&fixtureDef);
-                body->SetLinearVelocity(b2Vec2(-20, 30));
+                if (touchPos.x>=visibleSize.width/2) {
+                    body->SetLinearVelocity(b2Vec2(20, 30));
+                    ninja->setScaleX(1);
+                }
+                if (touchPos.x<visibleSize.width/2) {
+                    body->SetLinearVelocity(b2Vec2(-20, 30));
+                    ninja->setScaleX(-1);
+
+                }
                 jumpTimed = 0;
             }
             if (!_isMovingLeft) {
@@ -343,7 +365,14 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 body = world->CreateBody(&bodyDef);
                 body->SetGravityScale(12);
                 body->CreateFixture(&fixtureDef);
-                body->SetLinearVelocity(b2Vec2(20, 30));
+                if (touchPos.x>=visibleSize.width/2) {
+                    body->SetLinearVelocity(b2Vec2(20, 30));
+                    ninja->setScaleX(1);
+                }
+                if (touchPos.x<visibleSize.width/2) {
+                    body->SetLinearVelocity(b2Vec2(-20, 30));
+                    ninja->setScaleX(-1);
+                }
                 jumpTimed = 0;
             }
         }
