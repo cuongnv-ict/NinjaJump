@@ -145,6 +145,7 @@
 		A73F31B11A60AEE100BEA90E /* skeleton.json in Resources */ = {isa = PBXBuildFile; fileRef = A73F31AC1A60AEE100BEA90E /* skeleton.json */; };
 		A73F31B21A60AEE100BEA90E /* skeleton.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F31AD1A60AEE100BEA90E /* skeleton.png */; };
 		A73F31B31A60AEE100BEA90E /* skeleton.png in Resources */ = {isa = PBXBuildFile; fileRef = A73F31AD1A60AEE100BEA90E /* skeleton.png */; };
+		A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A74D5A201A6A0D9B00752B03 /* floorGreen.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -426,6 +427,7 @@
 		A73F31AB1A60AEE100BEA90E /* skeleton.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skeleton.atlas; sourceTree = "<group>"; };
 		A73F31AC1A60AEE100BEA90E /* skeleton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skeleton.json; sourceTree = "<group>"; };
 		A73F31AD1A60AEE100BEA90E /* skeleton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton.png; sourceTree = "<group>"; };
+		A74D5A201A6A0D9B00752B03 /* floorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floorGreen.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -634,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				48D2F1851A5C5C5A00A9794B /* Chong.png */,
+				A74D5A201A6A0D9B00752B03 /* floorGreen.png */,
 				A7146EA81A6215DE003D3C45 /* circle.png */,
 				A7146EA41A6215D0003D3C45 /* blank.png */,
 				48D2F1861A5C5C5A00A9794B /* Floor.png */,
@@ -920,6 +923,7 @@
 				487341B21A30580E007271AD /* tuong.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				48D2F1BC1A5C5C5B00A9794B /* Ninja.png in Resources */,
 				48D2F1A51A5C5C5B00A9794B /* Marker Felt.ttf in Resources */,

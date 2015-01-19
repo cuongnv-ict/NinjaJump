@@ -29,6 +29,7 @@ public:
     void setPositionBarMidle(cocos2d::Sprite * bar_one,cocos2d::Sprite * bar_two);
     void createGameScene();
     void gameOver();
+    void levelUp();
     void addWall(float w, float h, float px, float py);
     virtual void BeginContact(b2Contact* contact);
     virtual void EndContact(b2Contact* contact);
@@ -41,12 +42,16 @@ private :
     float _level;
     float _weight;
     float _height;
+    int _score;
+    int _upLevelWait;
     int _count_wait;
     int startPoint;
     bool existBall;
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding, _isPlaying;
     int jumpTimed;
 
+    Sprite *floorRed;
+    Sprite *floorGreen;
     Sprite *wallRight;
     Sprite * wallLeft;
     Sprite *shield;

@@ -34,12 +34,20 @@ bool HelloWorld::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-
-    cocos2d::Sprite * bg = cocos2d::Sprite::create("Floor.png");
-    bg->setAnchorPoint(cocos2d::Point(0,0));
-    bg->setScaleX(visibleSize.width / bg->getContentSize().width);
-    bg->setScaleY(visibleSize.height / bg->getContentSize().height);
-    this->addChild(bg, -1);
+    //Hình nền
+    floorRed = cocos2d::Sprite::create("Floor.png");
+    floorRed->setAnchorPoint(cocos2d::Point(0,0));
+    floorRed->runAction(FadeOut::create(0.0));
+    floorRed->setScaleX(visibleSize.width / floorRed->getContentSize().width);
+    floorRed->setScaleY(visibleSize.height / floorRed->getContentSize().height);
+    this->addChild(floorRed, -1);
+    
+    floorGreen = cocos2d::Sprite::create("floorGreen.png");
+    floorGreen->setAnchorPoint(cocos2d::Point(0,0));
+    floorGreen->setScaleX(visibleSize.width / floorGreen->getContentSize().width);
+    floorGreen->setScaleY(visibleSize.height / floorGreen->getContentSize().height);
+    this->addChild(floorGreen, -1);
+    /////////////////////////////
     /////////////////////////////
     // Add Wall
     {
@@ -64,7 +72,9 @@ bool HelloWorld::init()
         _listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(_listener, this);
     }
-    _level = 3.5;
+    _upLevelWait = 0;
+    _score = 0;
+    _level = 5.0;
     _count_wait = 2;
     _isPlaying = false;
     existBall = false;
@@ -129,16 +139,36 @@ void HelloWorld::gameOver(){
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 }
+void HelloWorld::levelUp(){
+    if (_level == 3.5) {
+        floorGreen->runAction(FadeOut::create(1.0));
+        floorRed->runAction(FadeIn::create(1.0));
+        _upLevelWait = 240;
+        _level = 3.25;
+    }
+    if (_level == 3.25) {
+        _upLevelWait = 240;
+        _level = 3.0;
+    }
+}
 void HelloWorld::update(float delta)
 {
+    if (_upLevelWait > 0) {
+        _upLevelWait --;
+    }
+    if (_score>15&&_level==3.5) {
+        this->levelUp();
+    }
     if(ninja->getPositionY()<= -100 && !_isDead){
         this->gameOver();
         _isDead = true;
     }
     if (_isPlaying) {
-        int sizeObs = _obstacle.size();
+        int sizeObs = (int)_obstacle.size();
         if (_obstacle.at(sizeObs -1)->getPositionY() < visibleSize.height/2) {
-            this->setObstacles();
+            if (_upLevelWait == 0) {
+                this->setObstacles();
+            }
         }
         //CCLOG("%d", a);
         for (int i = startPoint; i<_obstacle.size(); i++) {
@@ -151,7 +181,7 @@ void HelloWorld::update(float delta)
                     if (shield->isVisible()) {
                         if (_obstacle.at(i)->getTag() == DARTS || _obstacle.at(i)->getTag() == OBSTACLES) {
                             _obstacle.at(i)->setTag(0);
-                            //shield->setVisible(false);
+                            shield->setVisible(false);
                             _obstacle.at(i)->runAction(FadeOut::create(0.5));
                         }
                     }
@@ -169,6 +199,8 @@ void HelloWorld::update(float delta)
                     }
                     if(_obstacle.at(i)->getTag() == ITEM_ONE){
                         shield->setVisible(true);
+                        _obstacle.at(i)->runAction(FadeOut::create(0.5));
+                        _obstacle.at(i)->setTag(0);
                     }
                     if(_obstacle.at(i)->getTag() == ITEM_TWO){
                         //                    _obstacle.at(i)->setTag(0);
@@ -295,10 +327,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         this->setObstacles();
         _isPlaying = true;
     }
-    if (!_isDead && !_isClouding) {
+    if (!_isDead && !_isClouding && jumpTimed == 1) {
+        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         if (!_isRunning&&jumpTimed==1) {
-            bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-            auto positionTag = touch->getLocation();
             if (_isMovingLeft) {
                 world->DestroyBody(body);
                 body = world->CreateBody(&bodyDef);
@@ -810,7 +841,7 @@ void HelloWorld::setPositionBarLeft(cocos2d::Sprite * bar)
     bar->setPosition(cocos2d::Point(SIZE_SPACE+SIZE_WALL_WIDTH,
                                     _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
-    bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
+    bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
 }
 void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
@@ -819,7 +850,7 @@ void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
     bar->setScaleY(SIZE_BAR_HEIGHT / bar->getContentSize().height);
     bar->setPosition(Point(SIZE_WALL_WIDTH, _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
-    bar->runAction(MoveTo::create(3.5*a, Point(bar->getPositionX(), -200)));
+    bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
     this->addChild(bar,0);
 }
 
@@ -850,6 +881,7 @@ void HelloWorld::BeginContact(b2Contact *contact){
                 jumpTimed = 1;
 
             }
+            _score ++;
         }
     }
 }
