@@ -94,7 +94,7 @@ bool HelloWorld::init()
     addWall(SIZE_WALL_WIDTH,visibleSize.height ,visibleSize.width - SIZE_WALL_WIDTH/2,visibleSize.height / 2);// Phải
     this->createGameScene();
     _obstacle = *new Vector<Node *>(3);
-    schedule(schedule_selector(HelloWorld::update),0.01);
+    schedule(schedule_selector(HelloWorld::update),1/60);
     //schedule(schedule_selector(HelloWorld::setObstacles), 0.8);
     return true;
 }
@@ -104,7 +104,7 @@ void HelloWorld::createGameScene(){
     startPoint = 0;
     jumpTimed = 1;
     ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175f);
-    ninja->setAnimation(0, "Run on Wall", true);
+    ninja->setAnimation(0, "Run on wall_2", true);
     ninja->setTimeScale(1);
     shield = Sprite::create("circle.png");
     shield->setPosition(0,0.175 * 2 * SIZE_NINJA);
@@ -146,6 +146,7 @@ void HelloWorld::gameOver(){
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+
 }
 void HelloWorld::levelUp(){
     if (_level == 3.5) {
@@ -161,9 +162,9 @@ void HelloWorld::levelUp(){
         _upLevelWait = 240;
         _level = 3.0;
     }
-    else if (_level == 3.0 && numType == 0) {
-        numType = 2;
-    }
+//    else if (_level == 3.0 && numType == 0) {
+//        numType = 2;
+//    }
 }
 void HelloWorld::update(float delta)
 {
@@ -201,11 +202,12 @@ void HelloWorld::update(float delta)
                     if (shield->isVisible()) {
                         if (_obstacle.at(i)->getTag() == OBSTACLES) {
                             _obstacle.at(i)->setTag(0);
-                            //shield->setVisible(false);
+                            shield->setVisible(false);
                             _obstacle.at(i)->runAction(FadeOut::create(0.5));
                         }
                     }
                     if(_obstacle.at(i)->getTag() == OBSTACLES){
+                        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Dinh tuong.mp3");
                         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
                         body = world->CreateBody(&bodyDef);
                         body->SetGravityScale(8);
@@ -305,7 +307,7 @@ void HelloWorld::update(float delta)
             
         }
         ninja->setBonesToSetupPose();
-        ninja->setAnimation(0, "Run on Wall", true);
+        ninja->setAnimation(0, "Run on wall_2", true);
         _isRunning = true;
         existBall = false;
     }
@@ -386,10 +388,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 }
                 jumpTimed = 0;
             }
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down_voice.mp3");
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+
         }
         if (_isRunning ) {
-            body = world->CreateBody(&bodyDef);
-            if (ninja->getPositionX()<visibleSize.width/2) {
+            if (ninja->getPositionX()<visibleSize.width/2 && touchPos.x>visibleSize.width/2) {
+                body = world->CreateBody(&bodyDef);
                 fixtureDef.density = 0;
                 body->CreateFixture(&fixtureDef);
                 body->SetGravityScale(12);
@@ -398,8 +403,14 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 ninja->setRotation(0);
                 ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = false;
+                _isFlying = true;
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+                _isRunning = false;
+
             }
-            if (ninja->getPositionX()>visibleSize.width/2) {
+            if (ninja->getPositionX()>visibleSize.width/2&& touchPos.x<=visibleSize.width/2) {
+                body = world->CreateBody(&bodyDef);
                 fixtureDef.density = 0;
                 body->CreateFixture(&fixtureDef);
                 body->SetGravityScale(12);
@@ -408,11 +419,15 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
                 ninja->setRotation(0);
                 ninja->setAnimation(0, "Jump_Loop", true);
                 _isMovingLeft = true;
+                _isFlying = true;
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+                _isRunning = false;
+
             }
-            _isRunning = false;
+            
 
         }
-        _isFlying = true;
     }
     
     
@@ -440,8 +455,8 @@ void HelloWorld::setObstacles()
     cloud_two->setTag(CLOUDS);
     item_one->setTag(ITEM_ONE);
     item_two->setTag(ITEM_TWO);
-    unsigned int type = arc4random() % 10 + numType;
-    type = 10;
+    unsigned int type = arc4random() % 17;
+    //type = 12;
     switch (type) {
         case 4:
             setPositionBarRight(bar_one);
@@ -862,6 +877,175 @@ void HelloWorld::setObstacles()
             _obstacle.pushBack(thorns2);
             _obstacle.pushBack(bar_one);
             break;
+        case 12:
+            setPositionBarLeft(bar_one);
+            cloud_one->setPosition(cocos2d::Point(getContentSize().width*4/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
+            this->addChild(cloud_one,0);
+            cloud_one->runAction(MoveTo::create(_level*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            thorns->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 - thorns->getContentSize().height));
+            this->addChild(thorns,0);
+            thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns2->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
+            this->addChild(thorns2,0);
+            thorns2->runAction(MoveTo::create(_level*(thorns2->getPositionY()/visibleSize.height), Point(thorns2->getPositionX(), -200)));
+            if(arc4random()%100 > 75)
+            {
+                if(arc4random()%100 >= 80)
+                {
+                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_two,0);
+                    _obstacle.pushBack(item_two);
+                    item_two->runAction(MoveTo::create(_level*(item_two->getPositionY()/visibleSize.height), Point(item_two->getPositionX(), -200)));
+                }
+                else
+                {
+                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 -visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_one,0);
+                    _obstacle.pushBack(item_one);
+                    item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
+                }
+            }
+            _obstacle.pushBack(cloud_one);
+            _obstacle.pushBack(thorns);
+            _obstacle.pushBack(thorns2);
+            _obstacle.pushBack(bar_one);
+            break;
+        case 13:
+            setPositionBarLeft(bar_one);
+            cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
+            this->addChild(cloud_one,0);
+            cloud_one->runAction(MoveTo::create(_level*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            thorns->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 - thorns->getContentSize().height));
+            this->addChild(thorns,0);
+            thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns2->setRotation(180);
+            thorns2->setPosition(cocos2d::Point(visibleSize.width - SIZE_WALL_WIDTH - thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
+            this->addChild(thorns2,0);
+            thorns2->runAction(MoveTo::create(_level*(thorns2->getPositionY()/visibleSize.height), Point(thorns2->getPositionX(), -200)));
+            if(arc4random()%100 > 75)
+            {
+                if(arc4random()%100 >= 80)
+                {
+                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_two,0);
+                    _obstacle.pushBack(item_two);
+                    item_two->runAction(MoveTo::create(_level*(item_two->getPositionY()/visibleSize.height), Point(item_two->getPositionX(), -200)));
+                }
+                else
+                {
+                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 -visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_one,0);
+                    _obstacle.pushBack(item_one);
+                    item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
+                }
+            }
+            _obstacle.pushBack(cloud_one);
+            _obstacle.pushBack(thorns);
+            _obstacle.pushBack(thorns2);
+            _obstacle.pushBack(bar_one);
+            break;
+        case 14:
+            setPositionBarRight(bar_one);
+            cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
+            this->addChild(cloud_one,0);
+            cloud_one->runAction(MoveTo::create(_level*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            thorns->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 - thorns->getContentSize().height));
+            this->addChild(thorns,0);
+            thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns2->setRotation(180);
+            thorns2->setPosition(cocos2d::Point(visibleSize.width - SIZE_WALL_WIDTH - thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
+            this->addChild(thorns2,0);
+            thorns2->runAction(MoveTo::create(_level*(thorns2->getPositionY()/visibleSize.height), Point(thorns2->getPositionX(), -200)));
+            if(arc4random()%100 > 75)
+            {
+                if(arc4random()%100 >= 80)
+                {
+                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_two,0);
+                    _obstacle.pushBack(item_two);
+                    item_two->runAction(MoveTo::create(_level*(item_two->getPositionY()/visibleSize.height), Point(item_two->getPositionX(), -200)));
+                }
+                else
+                {
+                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 -visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_one,0);
+                    _obstacle.pushBack(item_one);
+                    item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
+                }
+            }
+            _obstacle.pushBack(cloud_one);
+            _obstacle.pushBack(thorns);
+            _obstacle.pushBack(thorns2);
+            _obstacle.pushBack(bar_one);
+            break;
+        case 15:
+            setPositionBarLeft(bar_one);
+            cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
+            this->addChild(cloud_one,0);
+            cloud_one->runAction(MoveTo::create(_level*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            thorns->setPosition(cocos2d::Point(visibleSize.width - SIZE_WALL_WIDTH - thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 - thorns->getContentSize().height));
+            this->addChild(thorns,0);
+            thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns->setRotation(180);
+            thorns2->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
+            this->addChild(thorns2,0);
+            thorns2->runAction(MoveTo::create(_level*(thorns2->getPositionY()/visibleSize.height), Point(thorns2->getPositionX(), -200)));
+            if(arc4random()%100 > 75)
+            {
+                if(arc4random()%100 >= 80)
+                {
+                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_two,0);
+                    _obstacle.pushBack(item_two);
+                    item_two->runAction(MoveTo::create(_level*(item_two->getPositionY()/visibleSize.height), Point(item_two->getPositionX(), -200)));
+                }
+                else
+                {
+                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 -visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_one,0);
+                    _obstacle.pushBack(item_one);
+                    item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
+                }
+            }
+            _obstacle.pushBack(cloud_one);
+            _obstacle.pushBack(thorns);
+            _obstacle.pushBack(thorns2);
+            _obstacle.pushBack(bar_one);
+            break;
+        case 16:
+            setPositionBarRight(bar_one);
+            cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
+            this->addChild(cloud_one,0);
+            cloud_one->runAction(MoveTo::create(_level*(cloud_one->getPositionY()/visibleSize.height), Point(cloud_one->getPositionX(), -200)));
+            thorns->setPosition(cocos2d::Point(visibleSize.width - SIZE_WALL_WIDTH - thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 - thorns->getContentSize().height));
+            this->addChild(thorns,0);
+            thorns->runAction(MoveTo::create(_level*(thorns->getPositionY()/visibleSize.height), Point(thorns->getPositionX(), -200)));
+            thorns->setRotation(180);
+            thorns2->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
+            this->addChild(thorns2,0);
+            thorns2->runAction(MoveTo::create(_level*(thorns2->getPositionY()/visibleSize.height), Point(thorns2->getPositionX(), -200)));
+            if(arc4random()%100 > 75)
+            {
+                if(arc4random()%100 >= 80)
+                {
+                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_two,0);
+                    _obstacle.pushBack(item_two);
+                    item_two->runAction(MoveTo::create(_level*(item_two->getPositionY()/visibleSize.height), Point(item_two->getPositionX(), -200)));
+                }
+                else
+                {
+                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 -visibleSize.height/2 - thorns->getContentSize().height));
+                    this->addChild(item_one,0);
+                    _obstacle.pushBack(item_one);
+                    item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
+                }
+            }
+            _obstacle.pushBack(cloud_one);
+            _obstacle.pushBack(thorns);
+            _obstacle.pushBack(thorns2);
+            _obstacle.pushBack(bar_one);
+            break;
         default:
             
             break;
@@ -944,5 +1128,6 @@ void HelloWorld::addNinja()
 }
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Game over_bg.mp3");
     Director::getInstance()->replaceScene(TransitionZoomFlipX::create(0.5, HelloWorld::createScene()));
 }
