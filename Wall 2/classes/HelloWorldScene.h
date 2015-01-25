@@ -40,6 +40,9 @@ private :
     cocos2d::Sprite * _ball;
     cocos2d::Sprite * _ninja;
     cocos2d::Action * _actionRun;
+    float distance;
+    float deathPoint;
+    float move;
     float _level;
     float _weight;
     float _height;
