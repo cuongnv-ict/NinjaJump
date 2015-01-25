@@ -103,8 +103,9 @@ bool HelloWorld::init()
 }
 void HelloWorld::createGameScene(){
     strength = Sprite::create("strength.png");
-    strength->setPosition(visibleSize.width/2, visibleSize.height/10);
+    strength->setPosition(visibleSize.width/12, visibleSize.height/10);
     strength->setOpacity(160);
+    strength->setAnchorPoint(Point(0,1));
     strength->setScaleX(1.01f);
     this->addChild(strength, -1);
     numType = 0;
