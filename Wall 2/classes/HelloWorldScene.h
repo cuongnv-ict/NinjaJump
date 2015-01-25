@@ -55,6 +55,7 @@ private :
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding, _isPlaying;
     int jumpTimed;
 
+    Sprite *strength;
     Sprite *floorRed;
     Sprite *floorGreen;
     Sprite *floorBlue;
