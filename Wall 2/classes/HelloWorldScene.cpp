@@ -71,7 +71,13 @@ bool HelloWorld::init()
         wallLeft->setPosition(Point(SIZE_WALL_WIDTH/2,getContentSize().height/2));
         this->addChild(wallLeft,0);
     }
-    
+    //add Menu
+    {
+        _menu = MenuScene::create();
+        _menu->setAnchorPoint(Vec2(0,0));
+        _menu->setPosition(0, 0);
+        this->addChild(_menu, 5);
+    }
     //Event Tag Scence
     {
         cocos2d::EventListenerTouchOneByOne * _listener = cocos2d::EventListenerTouchOneByOne::create();
@@ -103,7 +109,7 @@ bool HelloWorld::init()
 }
 void HelloWorld::createGameScene(){
     strength = Sprite::create("strength.png");
-    strength->setPosition(visibleSize.width/12, visibleSize.height/10);
+    strength->setPosition(visibleSize.width/10, visibleSize.height*14/15);
     strength->setOpacity(160);
     strength->setAnchorPoint(Point(0,1));
     strength->setScaleX(1.01f);
@@ -113,7 +119,7 @@ void HelloWorld::createGameScene(){
     startPoint = 0;
     jumpTimed = 1;
     ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175f);
-    ninja->setAnimation(0, "Run on wall_2", true);
+    ninja->setAnimation(0, "Stay", true);
     ninja->setTimeScale(1);
     shield = Sprite::create("circle.png");
     shield->setPosition(0,0.175 * 2 * SIZE_NINJA);
@@ -130,7 +136,7 @@ void HelloWorld::createGameScene(){
     auto _swing = RepeatForever::create( (ActionInterval*) _shield );
     shield->runAction(_swing);
     _isRunning = true;
-    ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
+    ninja->setPosition(visibleSize.width/2, 0);
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
@@ -161,32 +167,34 @@ void HelloWorld::levelUp(){
     if (_level == 3.5) {
         //floorGreen->runAction(FadeOut::create(1.0));
         //floorBlue->runAction(FadeIn::create(1.0));
-        _upLevelWait = 240;
+        _upLevelWait = 0;
         _level = 3.25;
+        numType = 4;
     }
     
     else if (_level == 3.25) {
         //floorBlue->runAction(FadeOut::create(1.0));
         //floorRed->runAction(FadeIn::create(1.0));
-        _upLevelWait = 240;
+        _upLevelWait = 0;
         _level = 3.0;
+        numType = 8;
     }
-//    else if (_level == 3.0 && numType == 0) {
-//        numType = 2;
-//    }
+    else if (_level == 3.0 && numType == 8) {
+        numType = 11;
+    }
 }
 void HelloWorld::update(float delta)
 {
     if (_upLevelWait > 0) {
         _upLevelWait --;
     }
-    if (_score>15&&_level==3.5) {
+    if (_score>25&&_level==3.5) {
         this->levelUp();
     }
-    if (_score>30&&_level==3.25) {
+    if (_score>50&&_level==3.25) {
         this->levelUp();
     }
-    if (_score>45&&_level==3.0 && numType == 0) {
+    if (_score>75&&_level==3.0 && numType == 0) {
         this->levelUp();
     }
     if(ninja->getPositionY()<= -100 && !_isDead){
@@ -374,9 +382,23 @@ float HelloWorld::radomValueBetween(float low,float height)
 }
 bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
+    if (!_menu->isTag()) {
+        
+        return true;
+
+    }
     if (!_isPlaying) {
+        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
+        body = world->CreateBody(&bodyDef);
+        body->SetGravityScale(12);
+        body->CreateFixture(&fixtureDef);
+        body->SetLinearVelocity(b2Vec2(-25, 50));
+        ninja->setScaleX(-1);
+        ninja->setAnimation(0, "Jump_Loop", true);
+        _isFlying = true;
         this->setObstacles();
         _isPlaying = true;
+        
     }
     auto touchPos = touch->getLocation();
     if (strength->getScaleX()<0.1) {
@@ -489,7 +511,7 @@ void HelloWorld::setObstacles()
     cloud_two->setTag(CLOUDS);
     item_one->setTag(ITEM_ONE);
     item_two->setTag(ITEM_TWO);
-    unsigned int type = arc4random() % 17;
+    unsigned int type = arc4random() % 6 + numType;
     //type = 0;
     switch (type) {
         case 4:
@@ -617,7 +639,6 @@ void HelloWorld::setObstacles()
                     else
                     {
                         item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
-                        item_one->runAction(MoveTo::create(_level*(item_one->getPositionY()/visibleSize.height), Point(item_one->getPositionX(), -200)));
                         _obstacle.pushBack(item_one);
                         this->addChild(item_one,0);
                     }

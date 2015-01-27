@@ -5,6 +5,7 @@
 #include "Box2D/Box2D.h"
 #include "GLES-Render.h"
 #include "spine/spine-cocos2dx.h"
+#include "MenuScene.h"
 USING_NS_CC;
 using namespace spine;
 using namespace std;
@@ -37,6 +38,7 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private :
+    MenuScene * _menu;
     cocos2d::Sprite * _ball;
     cocos2d::Sprite * _ninja;
     cocos2d::Action * _actionRun;
