@@ -16,6 +16,7 @@
 #define SIZE_WALL_WIDTH 12
 #define SIZE_NINJA 100
 #define NINJA_POSITION_Y 200
+#define BAR 2000
 #define OBSTACLES 1000
 #define ITEM_ONE 1003
 #define ITEM_TWO 1004
