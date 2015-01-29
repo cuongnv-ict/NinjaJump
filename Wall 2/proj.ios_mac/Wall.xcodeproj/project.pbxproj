@@ -27,6 +27,7 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		484899591A35A23E00818050 /* ball.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 484899581A35A23E00818050 /* ball.jpg */; };
 		487341B21A30580E007271AD /* tuong.png in Resources */ = {isa = PBXBuildFile; fileRef = 487341B11A30580E007271AD /* tuong.png */; };
+		488261901A796A34006FF673 /* MenuLayer-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4882618F1A796A34006FF673 /* MenuLayer-8.png */; };
 		48D1A43B1A37F302008FC786 /* Full_action.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43A1A37F302008FC786 /* Full_action.plist */; };
 		48D1A43F1A37F30F008FC786 /* Full_action.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43E1A37F30F008FC786 /* Full_action.png */; };
 		48D2F1A31A5C5C5B00A9794B /* Chong.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F1851A5C5C5A00A9794B /* Chong.png */; };
@@ -346,6 +347,7 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		484899581A35A23E00818050 /* ball.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ball.jpg; sourceTree = "<group>"; };
 		487341B11A30580E007271AD /* tuong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuong.png; sourceTree = "<group>"; };
+		4882618F1A796A34006FF673 /* MenuLayer-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuLayer-8.png"; sourceTree = "<group>"; };
 		48D1A43A1A37F302008FC786 /* Full_action.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Full_action.plist; sourceTree = "<group>"; };
 		48D1A43E1A37F30F008FC786 /* Full_action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Full_action.png; sourceTree = "<group>"; };
 		48D2F1831A5C513F00A9794B /* MyDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDefine.h; sourceTree = "<group>"; };
@@ -705,6 +707,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4882618F1A796A34006FF673 /* MenuLayer-8.png */,
 				A7DE6C8A1A6D3917009BD41D /* Ninja game sound */,
 				48D2F1851A5C5C5A00A9794B /* Chong.png */,
 				A73E498B1A75E17B00C88E07 /* menu_pack */,
@@ -1043,6 +1046,7 @@
 				A7DE6CB81A6DF827009BD41D /* skeleton.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				A7DE6CB71A6DF827009BD41D /* skeleton.json in Resources */,
+				488261901A796A34006FF673 /* MenuLayer-8.png in Resources */,
 				48D1A43B1A37F302008FC786 /* Full_action.plist in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
@@ -1291,10 +1295,9 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "";
-				PROVISIONING_PROFILE = "602d9b70-24d0-432a-9d0d-75174974acaf";
-				"PROVISIONING_PROFILE[sdk=*]" = "47348219-AB13-44E6-A8ED-F8F1D67E2BBB";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1305,7 +1308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Quan Le (BBLAYQU45Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Le (G3LAFDYUJQ)";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1322,12 +1325,11 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "";
-				PROVISIONING_PROFILE = "df58ae00-f992-4861-9913-f0d7dcee1105";
-				"PROVISIONING_PROFILE[sdk=*]" = "df58ae00-f992-4861-9913-f0d7dcee1105";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1395,7 +1397,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Le (G3LAFDYUJQ)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1418,7 +1420,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "602d9b70-24d0-432a-9d0d-75174974acaf";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1428,7 +1430,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Quan Le (BBLAYQU45Z)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1450,7 +1452,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "df58ae00-f992-4861-9913-f0d7dcee1105";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 			};
