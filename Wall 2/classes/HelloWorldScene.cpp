@@ -90,7 +90,7 @@ bool HelloWorld::init()
     distance = 0;
     _upLevelWait = 0;
     _score = 0;
-    _level = 2.5;
+    _level = 3.5;
     _count_wait = 2;
     _isPlaying = false;
     existBall = false;
