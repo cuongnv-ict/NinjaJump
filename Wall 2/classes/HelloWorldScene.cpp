@@ -332,7 +332,7 @@ void HelloWorld::update(float delta)
             
         }
         ninja->setBonesToSetupPose();
-        ninja->setAnimation(0, "Run on wall_2", true);
+        ninja->setAnimation(0, "Slide", true);
         _isRunning = true;
         existBall = false;
     }
@@ -1096,7 +1096,7 @@ void HelloWorld::EndContact(b2Contact *contact){
 void HelloWorld::addNinja()
 {
     SkeletonAnimation * vs_ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175);
-    vs_ninja->setAnimation(0, "Run on Wall", true);
+    vs_ninja->setAnimation(0, "Slide", true);
     vs_ninja->setTag(OBSTACLES);
     _obstacle.pushBack(vs_ninja);
     this->addChild(vs_ninja);

@@ -128,9 +128,11 @@ void MenuScene::eventTag()
     _cloud->runAction(fadeto);
     _drats->runAction(fadeto->clone());
     _title->runAction(ScaleTo::create(1, 0));
-    _leftTag->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_leftTag->getPositionY())), NULL));
-    _rightTag->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_rightTag->getPositionY())), NULL));
-    _background->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_background->getPositionY())), NULL));
+    FiniteTimeAction* temp = Sequence::create(DelayTime::create(0.2),FadeTo::create(0.2, -1),DelayTime::create(0.2), FadeTo::create(0.2, 0),NULL);
+    auto _temp = Repeat::create(temp, 4);
+    _leftTag->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_leftTag->getPositionY())),_temp, NULL));
+    _rightTag->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_rightTag->getPositionY())),_temp->clone(), NULL));
+    _background->runAction(Sequence::create(cocos2d::MoveBy::create(1.2, Vec2(0,_title->getPositionY()-_background->getPositionY())),_temp->clone(), NULL));
 }
 void MenuScene::beginPlay()
 {
@@ -147,7 +149,7 @@ void MenuScene::beginPlay()
     cocos2d::MoveBy * moveRight = cocos2d::MoveBy::create(0.8,Vec2(_background->getContentSize().width * _scaleValue/2,0));
     _leftTag->runAction(moveLeft);
     _rightTag->runAction(moveRight);
-    _background->runAction(ScaleTo::create(0.8, _scaleValue));
+    _background->runAction(Sequence::create(ScaleTo::create(0.8, _scaleValue * 1.2), ScaleTo::create(0.3, _scaleValue), NULL));
 }
 void MenuScene::update(float deta)
 {
