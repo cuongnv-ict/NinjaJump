@@ -39,6 +39,7 @@ private:
     cocos2d::MenuItemImage * _leftTag;
     cocos2d::MenuItemImage * _rightTag;
     spine::SkeletonAnimation * ninja;
+    Menu *menu;
     float _height_level,_width_level;
     float _scaleValue;
     bool _isLevel,_isTag,_isRun;

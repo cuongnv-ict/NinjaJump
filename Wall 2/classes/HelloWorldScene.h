@@ -66,6 +66,7 @@ private :
     Sprite *shield;
     Sprite *explosion;
     Size visibleSize;
+    LabelTTF *scoreLabel;
     b2World *world;
     b2Body *body;
     b2BodyDef bodyDef;

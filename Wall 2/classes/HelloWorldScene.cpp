@@ -108,6 +108,9 @@ bool HelloWorld::init()
     return true;
 }
 void HelloWorld::createGameScene(){
+    scoreLabel = LabelTTF::create("Score:", "Arial", 24);
+    scoreLabel->setPosition(visibleSize.width/2, visibleSize.height - scoreLabel->getContentSize().height);
+    this->addChild(scoreLabel);
     strength = Sprite::create("strength.png");
     strength->setPosition(visibleSize.width/10, visibleSize.height*14/15);
     strength->setOpacity(160);
@@ -161,6 +164,24 @@ void HelloWorld::gameOver(){
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+    auto hiScoreLabel = LabelTTF::create("Hi-Score:", "Arial", 30);
+    hiScoreLabel->setPosition(visibleSize.width/2, visibleSize.height/2);
+    UserDefault *def = UserDefault::getInstance();
+    //def->setIntegerForKey("Classic hi-score", 0);
+    int hiScore = def->getIntegerForKey("Classic", 0);
+    if (hiScore<_score) {
+        auto congrat = LabelTTF::create("You beat the hi-score!!!", "Arial", 35);
+        congrat->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() - congrat->getContentSize().height);
+        this->addChild(congrat);
+        def->setIntegerForKey("Classic", _score);
+        hiScore = _score;
+    }
+    char str[50]={0};
+    sprintf(str, "Hi-Score:%d", hiScore);
+    hiScoreLabel->setString(str);
+    scoreLabel->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() + scoreLabel->getContentSize().height);
+    this->addChild(hiScoreLabel);
+    def->flush();
 
 }
 void HelloWorld::levelUp(){
@@ -189,8 +210,9 @@ void HelloWorld::levelUp(){
 }
 void HelloWorld::update(float delta)
 {
-    CCLOG("%d", _score);
-    
+    char str[50]={0};
+    sprintf(str, "Score:%d", _score);
+    scoreLabel->setString(str);
     if (_upLevelWait > 0) {
         _upLevelWait --;
     }
@@ -229,7 +251,7 @@ void HelloWorld::update(float delta)
                 if (_obstacle.at(i)->getPositionY()<=-200) {
                     startPoint += 1;
                 }
-                if (_obstacle.at(i)->getTag() == BAR && _obstacle.at(i)->getPositionY() < visibleSize.width*0.6) {
+                if (_obstacle.at(i)->getTag() == BAR && _obstacle.at(i)->getPositionY() < visibleSize.height*0.6) {
                     _obstacle.at(i)->setTag(BAR - 1);
                     _score ++;
                 }
@@ -260,6 +282,11 @@ void HelloWorld::update(float delta)
                     }
                     if(_obstacle.at(i)->getTag() == ITEM_ONE){
                         shield->setVisible(true);
+                        _obstacle.at(i)->runAction(FadeOut::create(0.0));
+                        _obstacle.at(i)->setTag(0);
+                    }
+                    if(_obstacle.at(i)->getTag() == ITEM_TWO){
+                        strength->setScaleX(1.0);
                         _obstacle.at(i)->runAction(FadeOut::create(0.0));
                         _obstacle.at(i)->setTag(0);
                     }
@@ -518,7 +545,7 @@ void HelloWorld::setObstacles()
     bar_two->setAnchorPoint(cocos2d::Point(0,0));
     item_one->setScale(0.65);
     bar_one->setTag(BAR);
-    bar_two->setTag(BAR);
+    bar_two->setTag(BAR - 1);
     thorns->setTag(OBSTACLES);
     thorns2->setTag(OBSTACLES);
     cloud_one->setTag(-1);
@@ -526,7 +553,7 @@ void HelloWorld::setObstacles()
     item_one->setTag(ITEM_ONE);
     item_two->setTag(ITEM_TWO);
     unsigned int type = arc4random() % 8 + numType;
-    type = 4;
+    //type = 16;
     FiniteTimeAction* _barRight1 = Sequence::create(MoveBy::create(1.5, Point(visibleSize.width/2, 0)), MoveBy::create(1.5, Point(-visibleSize.width/2, 0)) ,NULL);
     FiniteTimeAction* _barRight2 = Sequence::create(MoveBy::create(1.5, Point(visibleSize.width/2, 0)), MoveBy::create(1.5, Point(-visibleSize.width/2, 0)) ,NULL);
     auto moveForRight1 = RepeatForever::create( (ActionInterval*) _barRight1 );
@@ -797,21 +824,21 @@ void HelloWorld::setObstacles()
             cloud_one->setPosition(cocos2d::Point(visibleSize.width*3/7,
                                                   _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
-            if(arc4random()%100 > 75)
-            {
-                if(arc4random()%100 >= 80)
-                {
-                    item_two->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_two->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
-                    _obstacle.pushBack(item_two);
-                    this->addChild(item_two,0);
-                }
-                else
-                {
-                    item_one->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_one->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
-                    _obstacle.pushBack(item_one);
-                    this->addChild(item_one,0);
-                }
-            }
+//            if(arc4random()%100 > 75)
+//            {
+//                if(arc4random()%100 >= 80)
+//                {
+//                    item_two->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_two->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+//                    _obstacle.pushBack(item_two);
+//                    this->addChild(item_two,0);
+//                }
+//                else
+//                {
+//                    item_one->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_one->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+//                    _obstacle.pushBack(item_one);
+//                    this->addChild(item_one,0);
+//                }
+//            }
             _obstacle.pushBack(cloud_one);
             _obstacle.pushBack(bar_one);
             _obstacle.pushBack(bar_two);
@@ -825,21 +852,21 @@ void HelloWorld::setObstacles()
             }
             cloud_one->setPosition(cocos2d::Point(visibleSize.width*4/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
-            if(arc4random()%100 > 75)
-            {
-                if(arc4random()%100 >= 80)
-                {
-                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
-                    _obstacle.pushBack(item_two);
-                    this->addChild(item_two,0);
-                }
-                else
-                {
-                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 * item_one->getScale() - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
-                    _obstacle.pushBack(item_one);
-                    this->addChild(item_one,0);
-                }
-            }
+//            if(arc4random()%100 > 75)
+//            {
+//                if(arc4random()%100 >= 80)
+//                {
+//                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+//                    _obstacle.pushBack(item_two);
+//                    this->addChild(item_two,0);
+//                }
+//                else
+//                {
+//                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 * item_one->getScale() - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2 - thorns->getContentSize().height));
+//                    _obstacle.pushBack(item_one);
+//                    this->addChild(item_one,0);
+//                }
+//            }
             _obstacle.pushBack(cloud_one);
             _obstacle.pushBack(bar_one);
             _obstacle.pushBack(bar_two);
@@ -855,22 +882,22 @@ void HelloWorld::setObstacles()
             this->addChild(cloud_one,0);
             thorns->setPosition(Point(SIZE_WALL_WIDTH  + thorns->getContentSize().width/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(thorns,0);
-            if(arc4random()%100 > 75)
-            {
-                if(arc4random()%100 >= 80)
-                {
-                    item_two->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_two->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_two,0);
-                    _obstacle.pushBack(item_two);
-                }
-                else
-                {
-                    item_one->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_one->getContentSize().width/2,_count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_one, 0);
-                    _obstacle.pushBack(item_one);
-                    
-                }
-            }
+//            if(arc4random()%100 > 75)
+//            {
+//                if(arc4random()%100 >= 80)
+//                {
+//                    item_two->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_two->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_two,0);
+//                    _obstacle.pushBack(item_two);
+//                }
+//                else
+//                {
+//                    item_one->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + item_one->getContentSize().width/2,_count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_one, 0);
+//                    _obstacle.pushBack(item_one);
+//                    
+//                }
+//            }
             _obstacle.pushBack(cloud_one);
             _obstacle.pushBack(thorns);
             _obstacle.pushBack(bar_one);
@@ -888,21 +915,21 @@ void HelloWorld::setObstacles()
             thorns->setRotation(180);
             thorns->setPosition(cocos2d::Point(getContentSize().width - SIZE_WALL_WIDTH - + thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(thorns,0);
-            if(arc4random()%100 > 75)
-            {
-                if(arc4random()%100 >= 80)
-                {
-                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_two,0);
-                    _obstacle.pushBack(item_two);
-                }
-                else
-                {
-                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_one,0);
-                    _obstacle.pushBack(item_one);
-                }
-            }
+//            if(arc4random()%100 > 75)
+//            {
+//                if(arc4random()%100 >= 80)
+//                {
+//                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_two,0);
+//                    _obstacle.pushBack(item_two);
+//                }
+//                else
+//                {
+//                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_one,0);
+//                    _obstacle.pushBack(item_one);
+//                }
+//            }
             _obstacle.pushBack(cloud_one);
             _obstacle.pushBack(thorns);
             _obstacle.pushBack(bar_one);
@@ -953,21 +980,21 @@ void HelloWorld::setObstacles()
             thorns2->setRotation(180);
             thorns2->setPosition(cocos2d::Point(getContentSize().width - SIZE_WALL_WIDTH - + thorns2->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3 + thorns2->getContentSize().height));
             this->addChild(thorns2,0);
-            if(arc4random()%100 > 75)
-            {
-                if(arc4random()%100 >= 80)
-                {
-                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_two,0);
-                    _obstacle.pushBack(item_two);
-                }
-                else
-                {
-                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2));
-                    this->addChild(item_one,0);
-                    _obstacle.pushBack(item_one);
-                }
-            }
+//            if(arc4random()%100 > 75)
+//            {
+//                if(arc4random()%100 >= 80)
+//                {
+//                    item_two->setPosition(cocos2d::Point(getContentSize().width - item_two->getContentSize().width/2 - SIZE_WALL_WIDTH, _count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_two,0);
+//                    _obstacle.pushBack(item_two);
+//                }
+//                else
+//                {
+//                    item_one->setPosition(cocos2d::Point(getContentSize().width - item_one->getContentSize().width/2 - SIZE_WALL_WIDTH,_count_wait * visibleSize.height - visibleSize.height/2));
+//                    this->addChild(item_one,0);
+//                    _obstacle.pushBack(item_one);
+//                }
+//            }
             _obstacle.pushBack(cloud_one);
             _obstacle.pushBack(thorns);
             _obstacle.pushBack(thorns2);

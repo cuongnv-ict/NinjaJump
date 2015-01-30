@@ -64,7 +64,7 @@ bool MenuScene::init()
     _rightTag->setPosition(Vec2(visibleSize.width/2 + _background->getContentSize().width* _background->getScale()/2 +_rightTag->getContentSize().width * _leftTag->getScale()/2,_drats->getPosition().y - _rightTag->getContentSize().height * _rightTag->getScale()/2 - _drats->getScale()* _drats->getContentSize().height/2));
      _background->setPosition(Vec2(visibleSize.width/2,_leftTag->getPosition().y - _leftTag->getScale()*_leftTag->getContentSize().height/2 + _background->getContentSize().height * _background->getScale()/2));
     this->addChild(_background, 0);
-    auto menu = Menu::create(_leftTag,_rightTag, NULL);
+    menu = Menu::create(_leftTag,_rightTag, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
     //add Ninja
@@ -97,6 +97,7 @@ void MenuScene::menuLeft(cocos2d::Ref * pSender)
 //    ninja->setScaleX(-1);
 //    ninja->setPosition(0.175 * SIZE_NINJA + SIZE_WALL_WIDTH, NINJA_POSITION_Y);
     _isTag = true;
+    this->removeChild(menu);
 }
 void MenuScene::menuRight(cocos2d::Ref * pSender)
 {
@@ -108,6 +109,7 @@ void MenuScene::menuRight(cocos2d::Ref * pSender)
 //    ninja->setAnimation(0, "Run on wall_2", true);
 //    ninja->setPosition(Director::getInstance()->getVisibleSize().width - (0.175 * SIZE_NINJA + SIZE_WALL_WIDTH), NINJA_POSITION_Y);
     _isTag = true;
+    this->removeChild(menu);
 }
 bool MenuScene::isTag()
 {
