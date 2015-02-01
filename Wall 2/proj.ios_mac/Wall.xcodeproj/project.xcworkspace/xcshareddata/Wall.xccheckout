@@ -5,16 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
-	<string>3415B400-DF12-4DBF-8E57-2601CAAEDB56</string>
-=======
-	<string>1313766C-E7C7-4263-A3AF-36E506D6E949</string>
->>>>>>> 6019ace9b082f0cb9e25c890b4a436067913f434
+	<string>C1B65967-DDBE-41E3-BCEE-B9D5C1E0AC65</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Wall</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</key>
 		<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
 	</dict>
@@ -23,41 +18,21 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</key>
-=======
-		<key>6FC0613C-8053-425A-9833-178137536F10</key>
-		<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
-	</dict>
-	<key>IDESourceControlProjectPath</key>
-	<string>Wall 2/proj.ios_mac/Wall.xcodeproj/project.xcworkspace</string>
-	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
-	<dict>
-		<key>6FC0613C-8053-425A-9833-178137536F10</key>
->>>>>>> 6019ace9b082f0cb9e25c890b4a436067913f434
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
 	<key>IDESourceControlProjectVersion</key>
-<<<<<<< HEAD
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
 	<string>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</string>
-=======
-	<integer>110</integer>
-	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6FC0613C-8053-425A-9833-178137536F10</string>
->>>>>>> 6019ace9b082f0cb9e25c890b4a436067913f434
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</string>
-=======
-			<string>6FC0613C-8053-425A-9833-178137536F10</string>
->>>>>>> 6019ace9b082f0cb9e25c890b4a436067913f434
 			<key>IDESourceControlWCCName</key>
 			<string>NinjaJump</string>
 		</dict>

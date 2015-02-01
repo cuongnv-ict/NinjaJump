@@ -122,7 +122,7 @@ void HelloWorld::createGameScene(){
     startPoint = 0;
     jumpTimed = 1;
     ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175f);
-    ninja->setAnimation(0, "Stay", true);
+    ninja->setAnimation(0, "dap dat", false);
     ninja->setTimeScale(1);
     shield = Sprite::create("circle.png");
     shield->setPosition(0,0.175 * 2 * SIZE_NINJA);
@@ -139,7 +139,8 @@ void HelloWorld::createGameScene(){
     auto _swing = RepeatForever::create( (ActionInterval*) _shield );
     shield->runAction(_swing);
     _isRunning = true;
-    ninja->setPosition(visibleSize.width/2, 0);
+    ninja->setPosition(visibleSize.width/2, visibleSize.height);
+    ninja->runAction(MoveTo::create(0.5, Point(visibleSize.width/2, 0)));
     ninja->setTag(1);
     ninja->setScaleX(-1);
     this->addChild(ninja, 0);
@@ -373,7 +374,7 @@ void HelloWorld::update(float delta)
             
         }
         ninja->setBonesToSetupPose();
-        ninja->setAnimation(0, "Run on wall_2", true);
+        ninja->setAnimation(0, "Slide", false);
         _isRunning = true;
         existBall = false;
     }
@@ -423,25 +424,34 @@ float HelloWorld::radomValueBetween(float low,float height)
 }
 bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
+    auto touchPos = touch->getLocation();
+
     if (!_menu->isTag()) {
         
         return true;
 
     }
-    if (!_isPlaying) {
+    if (!_isPlaying && !_isFlying) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         body = world->CreateBody(&bodyDef);
         body->SetGravityScale(12);
         body->CreateFixture(&fixtureDef);
-        body->SetLinearVelocity(b2Vec2(-25, 50));
-        ninja->setScaleX(-1);
+        if (touchPos.x>=visibleSize.width/2) {
+            body->SetLinearVelocity(b2Vec2(25, 50));
+            ninja->setScaleX(1);
+
+        }
+        if (touchPos.x<visibleSize.width/2) {
+            body->SetLinearVelocity(b2Vec2(-25, 50));
+            ninja->setScaleX(-1);
+
+        }
         ninja->setAnimation(0, "Jump_Loop", true);
         _isFlying = true;
         this->setObstacles();
-        _isPlaying = true;
+        //_isPlaying = true;
         
     }
-    auto touchPos = touch->getLocation();
     if (strength->getScaleX()<0.1) {
         CCLOG("out of Jump");
         return true;
@@ -1235,6 +1245,9 @@ void HelloWorld::BeginContact(b2Contact *contact){
                 deathPoint = visibleSize.height*0.6;
                 move = 0;
             }
+            if (!_isPlaying) {
+                _isPlaying = true;
+            }
         }
     }
 }
@@ -1244,7 +1257,7 @@ void HelloWorld::EndContact(b2Contact *contact){
 void HelloWorld::addNinja()
 {
     SkeletonAnimation * vs_ninja = SkeletonAnimation::createWithFile("skeleton.json", "skeleton.atlas", 0.175);
-    vs_ninja->setAnimation(0, "Run on Wall", true);
+    vs_ninja->setAnimation(0, "Slide", true);
     vs_ninja->setTag(OBSTACLES);
     _obstacle.pushBack(vs_ninja);
     this->addChild(vs_ninja);
@@ -1265,5 +1278,5 @@ void HelloWorld::addNinja()
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Game over_bg.mp3");
-    Director::getInstance()->replaceScene(TransitionZoomFlipX::create(0.5, HelloWorld::createScene()));
+    Director::getInstance()->replaceScene(TransitionCrossFade::create(0.1, HelloWorld::createScene()));
 }
