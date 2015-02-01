@@ -10,6 +10,7 @@
 	<string>Wall</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</key>
 		<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
 	</dict>
@@ -18,21 +19,41 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</key>
+=======
+		<key>BB7C245C-5FFE-47AB-982E-3522471A2D74</key>
+		<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Wall 2/proj.ios_mac/Wall.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BB7C245C-5FFE-47AB-982E-3522471A2D74</key>
+>>>>>>> 90004ba0b0318064e08b974bd655458878bd0af1
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/cuongnv-ict/NinjaJump.git</string>
 	<key>IDESourceControlProjectVersion</key>
+<<<<<<< HEAD
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
 	<string>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</string>
+=======
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BB7C245C-5FFE-47AB-982E-3522471A2D74</string>
+>>>>>>> 90004ba0b0318064e08b974bd655458878bd0af1
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+<<<<<<< HEAD
 			<string>B75A47B233C5B1F8AEC7EF9D83699BB4A44FEE7B</string>
+=======
+			<string>BB7C245C-5FFE-47AB-982E-3522471A2D74</string>
+>>>>>>> 90004ba0b0318064e08b974bd655458878bd0af1
 			<key>IDESourceControlWCCName</key>
 			<string>NinjaJump</string>
 		</dict>
