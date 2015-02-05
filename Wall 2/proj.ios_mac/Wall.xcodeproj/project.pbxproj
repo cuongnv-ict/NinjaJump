@@ -18,7 +18,6 @@
 		1AC6FB31180E99EB004C840B /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB09180E9839004C840B /* libcocos2dx-extensions iOS.a */; };
 		1AC6FB32180E99EB004C840B /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0F180E9839004C840B /* libCocosDenshion iOS.a */; };
 		1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */; };
-		1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */; };
 		1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B916D35E4900DB1158 /* CloseNormal.png */; };
 		1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */; };
 		1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */; };
@@ -162,6 +161,7 @@
 		A73F31AA1A60AE3D00BEA90E /* spine-cocos2dx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F31691A60AE3D00BEA90E /* spine-cocos2dx.cpp */; };
 		A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A74D5A201A6A0D9B00752B03 /* floorGreen.png */; };
 		A74E8AC91A753E600024A3E6 /* strength.png in Resources */ = {isa = PBXBuildFile; fileRef = A74E8AC81A753E600024A3E6 /* strength.png */; };
+		A786F1D51A827E2F0022135D /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */; };
 		A7DE6C991A6D3917009BD41D /* Backgroun_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */; };
 		A7DE6C9A1A6D3917009BD41D /* ban.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8C1A6D3917009BD41D /* ban.mp3 */; };
 		A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */; };
@@ -1153,6 +1153,7 @@
 				A73F31711A60AE3D00BEA90E /* AnimationState.c in Sources */,
 				A73F31991A60AE3D00BEA90E /* SkeletonBounds.c in Sources */,
 				A73E49881A75DEFE00C88E07 /* MenuScene.cpp in Sources */,
+				A786F1D51A827E2F0022135D /* HelloWorldScene.cpp in Sources */,
 				A73F31971A60AE3D00BEA90E /* SkeletonAnimation.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				A73F31911A60AE3D00BEA90E /* PolygonBatch.cpp in Sources */,
@@ -1163,7 +1164,6 @@
 				A73F31A11A60AE3D00BEA90E /* Skin.c in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				A73F31771A60AE3D00BEA90E /* AtlasAttachmentLoader.c in Sources */,
-				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 				A73F31891A60AE3D00BEA90E /* IkConstraint.c in Sources */,
 				A73F2CEF1A60A6C300BEA90E /* GLES-Render.cpp in Sources */,
 				A73F318F1A60AE3D00BEA90E /* MeshAttachment.c in Sources */,
@@ -1295,7 +1295,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1325,7 +1325,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "";

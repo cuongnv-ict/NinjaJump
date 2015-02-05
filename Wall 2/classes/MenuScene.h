@@ -25,9 +25,6 @@ public :
     void menuLeft(cocos2d::Ref* pSender);
     void menuRight(cocos2d::Ref* pSender);
     bool isTag();
-    spine::SkeletonAnimation * getSpine();
-    CREATE_FUNC(MenuScene);
-private:
     cocos2d::Sprite * _level_1;
     cocos2d::Sprite * _level_2;
     cocos2d::Sprite * _level_3;
@@ -38,11 +35,15 @@ private:
     cocos2d::Sprite * _background;
     cocos2d::MenuItemImage * _leftTag;
     cocos2d::MenuItemImage * _rightTag;
-    spine::SkeletonAnimation * ninja;
+    bool _isLevel,_isTag,_isRun;
+
+    spine::SkeletonAnimation * getSpine();
+    CREATE_FUNC(MenuScene);
+private:
+        spine::SkeletonAnimation * ninja;
     Menu *menu;
     float _height_level,_width_level;
     float _scaleValue;
-    bool _isLevel,_isTag,_isRun;
    };
 #endif /* defined(__Wall__MenuScene__) */
 
