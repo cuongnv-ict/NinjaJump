@@ -54,6 +54,7 @@ private :
     int _count_wait;
     int startPoint;
     bool existBall;
+    bool _isTagMenu;
     bool _isMovingLeft, _isFlying, _isRunning, _isDead, _isToMuch, _isClouding, _isPlaying;
     int jumpTimed;
 
