@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "Box2D/Box2D.h"
-#include "GLES-Render.h"
 #include "spine/spine-cocos2dx.h"
 #include "MenuScene.h"
 USING_NS_CC;
@@ -43,11 +42,14 @@ private :
     cocos2d::Sprite * _ninja;
     cocos2d::Action * _actionRun;
     float distance;
+    float gravityScale;
     float deathPoint;
     float move;
     float _level;
     float _weight;
     float _height;
+    float _scaleWidth;
+    float _scaleHeight;
     int numType;
     int _score;
     int _upLevelWait;

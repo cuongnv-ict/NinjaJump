@@ -21,8 +21,6 @@ public :
     void beginPlay();
     void update(float delta);
     bool isTag();
-    CREATE_FUNC(MenuScene);
-private:
     cocos2d::Sprite * _level_1;
     cocos2d::Sprite * _level_2;
     cocos2d::Sprite * _level_3;
@@ -33,12 +31,15 @@ private:
     cocos2d::Sprite * _score_2;
     cocos2d::Sprite * _score_3;
     cocos2d::Sprite * _score_4;
-    cocos2d::MenuItemImage * _leftTag;
-    cocos2d::MenuItemImage * _rightTag;
+    bool _isLevel,_isTag,_isRun;
+
+    spine::SkeletonAnimation * getSpine();
+    CREATE_FUNC(MenuScene);
+private:
     spine::SkeletonAnimation * _tag;
+    Menu *menu;
     float _height_level,_width_level;
     float _scaleValue;
-    bool _isLevel,_isTag,_isRun;
    };
 #endif /* defined(__Wall__MenuScene__) */
 
