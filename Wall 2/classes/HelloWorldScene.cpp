@@ -31,12 +31,6 @@ bool HelloWorld::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     
-    if (visibleSize.width <= 1536) {
-        gravityScale = 22;
-    }
-    if (visibleSize.width <= 768) {
-        gravityScale = 12;
-    }
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
@@ -71,13 +65,13 @@ bool HelloWorld::init()
         wallRight->setScaleX(SIZE_WALL_WIDTH/wallRight->getContentSize().width);
         wallRight->setScaleY(getContentSize().height/wallRight->getContentSize().height);
         wallRight->setPosition(getContentSize().width - SIZE_WALL_WIDTH/2,getContentSize().height/2);
-        this->addChild(wallRight, 0);
+        this->addChild(wallRight, 5);
         wallLeft = Sprite::create("Wall.png");
         wallLeft->setTag(2);
         wallLeft->setScaleX(-SIZE_WALL_WIDTH/wallLeft->getContentSize().width);
         wallLeft->setScaleY(getContentSize().height/wallLeft->getContentSize().height);
         wallLeft->setPosition(Point(SIZE_WALL_WIDTH/2,getContentSize().height/2));
-        this->addChild(wallLeft,0);
+        this->addChild(wallLeft,5);
     }
     //add Menu
     {
@@ -97,7 +91,7 @@ bool HelloWorld::init()
             _menu->_isLevel = false;
             _menu->setAnchorPoint(Vec2(0,0));
             _menu->setPosition(0, 0);
-            this->addChild(_menu, 5);
+            this->addChild(_menu, -5);
         }
     }
     //Event Tag Scence
@@ -110,7 +104,7 @@ bool HelloWorld::init()
     _scaleWidth = (visibleSize.width/640);
     _scaleHeight = (visibleSize.height/960);
     move = 0;
-    deathPoint = visibleSize.height*0.6;
+    deathPoint = visibleSize.height*0.5;
     distance = 0;
     _upLevelWait = 0;
     _score = 0;
@@ -133,15 +127,19 @@ bool HelloWorld::init()
     return true;
 }
 void HelloWorld::createGameScene(){
+    auto frame = Sprite::create("floorBlue.png");
+    frame->setScaleY(0.15);
+    frame->setPosition(visibleSize.width/2, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY());
+    this->addChild(frame, 4);
     scoreLabel = LabelTTF::create("Score:", "Arial", 24);
     scoreLabel->setPosition(visibleSize.width/2, visibleSize.height - scoreLabel->getContentSize().height);
-    this->addChild(scoreLabel);
+    this->addChild(scoreLabel, 4);
     strength = Sprite::create("strength.png");
-    strength->setPosition(visibleSize.width/10, visibleSize.height*14/15);
+    strength->setPosition(visibleSize.width/2 - strength->getContentSize().width/2, visibleSize.height*14/15);
     strength->setOpacity(160);
     strength->setAnchorPoint(Point(0,1));
     strength->setScaleX(1.01f);
-    this->addChild(strength, -1);
+    this->addChild(strength, 4);
     numType = 0;
     _obstacle.clear();
     startPoint = 0;
@@ -298,22 +296,24 @@ void HelloWorld::update(float delta)
                 if (_obstacle.at(i)->getPositionY()<=-200) {
                     startPoint += 1;
                 }
-                if (_obstacle.at(i)->getTag() == BAR && _obstacle.at(i)->getPositionY() < visibleSize.height*0.6) {
+                if (_obstacle.at(i)->getTag() == BAR && _obstacle.at(i)->getPositionY() < visibleSize.height*0.5) {
                     _obstacle.at(i)->setTag(BAR - 1);
                     _score ++;
                 }
                 if (move >=0) {
                     _obstacle.at(i)->setPositionY(_obstacle.at(i)->getPositionY() - move);
                 }
-                if (ninja->getBoundingBox().intersectsRect(_obstacle.at(i)->getBoundingBox())&&!_isDead) {
+                if (ninja->getBoundingBox().intersectsRect(_obstacle.at(i)->getBoundingBox())&&!_isDead&&_obstacle.at(i)->isVisible()) {
                     if (shield->isVisible()) {
                         if (_obstacle.at(i)->getTag() == OBSTACLES || _obstacle.at(i)->getTag() == BAR -1 || _obstacle.at(i)->getTag() == BAR) {
                             _obstacle.at(i)->setTag(0);
                             shield->setVisible(false);
                             _obstacle.at(i)->runAction(FadeOut::create(0.5));
+                            _obstacle.at(i)->setVisible(true);
+
                         }
                     }
-                    if(_obstacle.at(i)->getTag() == OBSTACLES || _obstacle.at(i)->getTag() == BAR || _obstacle.at(i)->getTag() == BAR - 1 ){
+                    if((_obstacle.at(i)->getTag() == OBSTACLES || _obstacle.at(i)->getTag() == BAR || _obstacle.at(i)->getTag() == BAR - 1 )&&_obstacle.at(i)->isVisible()){
                         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Dinh tuong.mp3");
                         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
                         body = world->CreateBody(&bodyDef);
@@ -424,16 +424,16 @@ void HelloWorld::update(float delta)
         _isRunning = true;
         existBall = false;
     }
-    if ((_isFlying||_isDead) && body->GetPosition().y*SCALE_RATIO <= visibleSize.height*0.6) {
+    if ((_isFlying||_isDead) && body->GetPosition().y*SCALE_RATIO <= visibleSize.height*0.5) {
         move = 0;
         ninja->setPosition(body->GetPosition().x*SCALE_RATIO, body->GetPosition().y*SCALE_RATIO - distance);
     }
-    if ((_isFlying||_isDead) && body->GetPosition().y*SCALE_RATIO > visibleSize.height*0.6) {
+    if ((_isFlying||_isDead) && body->GetPosition().y*SCALE_RATIO > visibleSize.height*0.5) {
         if (body->GetLinearVelocity().y>=0) {
             move = body->GetPosition().y*SCALE_RATIO - deathPoint;
             deathPoint = body->GetPosition().y*SCALE_RATIO;
-            ninja->setPosition(body->GetPosition().x*SCALE_RATIO, visibleSize.height*0.6);
-            distance = body->GetPosition().y*SCALE_RATIO - visibleSize.height*0.6;
+            ninja->setPosition(body->GetPosition().x*SCALE_RATIO, visibleSize.height*0.5);
+            distance = body->GetPosition().y*SCALE_RATIO - visibleSize.height*0.5;
         }
         if (body->GetLinearVelocity().y<0) {
             ninja->setPosition(body->GetPosition().x*SCALE_RATIO, body->GetPosition().y*SCALE_RATIO - distance);
@@ -476,8 +476,69 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         _isTagMenu = false;
         return true;
     }
-    this->removeChild(_menu,true);
     auto touchPos = touch->getLocation();
+    if (!_isDead && !_isClouding && strength->getScaleX()>=0.1&&_isPlaying) {
+        distance = 0;
+        deathPoint = visibleSize.height*0.5;
+        move = 0;
+        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
+        if (!_isRunning&&jumpTimed==1) {
+            world->DestroyBody(body);
+            body = world->CreateBody(&bodyDef);
+            body->SetGravityScale(12);
+            body->CreateFixture(&fixtureDef);
+            if (touchPos.x>=visibleSize.width/2) {
+                body->SetLinearVelocity(b2Vec2(10*_scaleWidth, 40*_scaleHeight));
+                ninja->setScaleX(1);
+            }
+            if (touchPos.x<visibleSize.width/2) {
+                body->SetLinearVelocity(b2Vec2(-10*_scaleWidth, 40*_scaleHeight));
+                ninja->setScaleX(-1);
+                
+            }
+            strength->setScaleX(strength->getScaleX() - 0.1);
+            
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down_voice.mp3");
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+            
+        }
+        if (_isRunning ) {
+            if (ninja->getPositionX()<visibleSize.width/2 && touchPos.x>visibleSize.width/2) {
+                body = world->CreateBody(&bodyDef);
+                fixtureDef.density = 0;
+                body->CreateFixture(&fixtureDef);
+                body->SetGravityScale(12);
+                body->SetLinearVelocity(b2Vec2(10*_scaleWidth, 40*_scaleHeight));
+                ninja->setScaleX(1);
+                ninja->setRotation(0);
+                ninja->setAnimation(0, "Jump_Loop", true);
+                _isFlying = true;
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+                _isRunning = false;
+                strength->setScaleX(strength->getScaleX() - 0.1);
+                
+            }
+            if (ninja->getPositionX()>visibleSize.width/2&& touchPos.x<=visibleSize.width/2) {
+                body = world->CreateBody(&bodyDef);
+                fixtureDef.density = 0;
+                body->CreateFixture(&fixtureDef);
+                body->SetGravityScale(12);
+                body->SetLinearVelocity(b2Vec2(-10*_scaleWidth, 40*_scaleHeight));
+                ninja->setScaleX(-1);
+                ninja->setRotation(0);
+                ninja->setAnimation(0, "Jump_Loop", true);
+                _isFlying = true;
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
+                _isRunning = false;
+                strength->setScaleX(strength->getScaleX() - 0.1);
+                
+            }
+            
+            
+        }
+    }
     if (!_isPlaying && !_isFlying) {
         bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
         body = world->CreateBody(&bodyDef);
@@ -495,94 +556,17 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
         }
         ninja->setAnimation(0, "Jump_Loop", true);
         _isFlying = true;
+        this->removeChild(_menu);
         this->setObstacles();
-        //_isPlaying = true;
+        _isRunning = false;
+        _isPlaying = true;
         
     }
     if (strength->getScaleX()<0.1) {
         CCLOG("out of Jump");
         return true;
     }
-    if (!_isDead && !_isClouding && strength->getScaleX()>=0.1) {
-        distance = 0;
-        deathPoint = visibleSize.height*0.6;
-        move = 0;
-        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-        if (!_isRunning&&jumpTimed==1) {
-            if (_isMovingLeft) {
-                world->DestroyBody(body);
-                body = world->CreateBody(&bodyDef);
-                body->SetGravityScale(12);
-                body->CreateFixture(&fixtureDef);
-                if (touchPos.x>=visibleSize.width/2) {
-                    body->SetLinearVelocity(b2Vec2(10*_scaleWidth, 40*_scaleHeight));
-                    ninja->setScaleX(1);
-                }
-                if (touchPos.x<visibleSize.width/2) {
-                    body->SetLinearVelocity(b2Vec2(-10*_scaleWidth, 40*_scaleHeight));
-                    ninja->setScaleX(-1);
-
-                }
-                strength->setScaleX(strength->getScaleX() - 0.1);
-            }
-            if (!_isMovingLeft) {
-                world->DestroyBody(body);
-                body = world->CreateBody(&bodyDef);
-                body->SetGravityScale(12);
-                body->CreateFixture(&fixtureDef);
-                if (touchPos.x>=visibleSize.width/2) {
-                    body->SetLinearVelocity(b2Vec2(10*_scaleWidth, 40*_scaleHeight));
-                    ninja->setScaleX(1);
-                }
-                if (touchPos.x<visibleSize.width/2) {
-                    body->SetLinearVelocity(b2Vec2(-10*_scaleWidth, 40*_scaleHeight));
-                    ninja->setScaleX(-1);
-                }
-                strength->setScaleX(strength->getScaleX() - 0.1);
-            }
-            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down_voice.mp3");
-            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
-
-        }
-        if (_isRunning ) {
-            if (ninja->getPositionX()<visibleSize.width/2 && touchPos.x>visibleSize.width/2) {
-                body = world->CreateBody(&bodyDef);
-                fixtureDef.density = 0;
-                body->CreateFixture(&fixtureDef);
-                body->SetGravityScale(12);
-                body->SetLinearVelocity(b2Vec2(10*_scaleWidth, 40*_scaleHeight));
-                ninja->setScaleX(1);
-                ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_Loop", true);
-                _isMovingLeft = false;
-                _isFlying = true;
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
-                _isRunning = false;
-                strength->setScaleX(strength->getScaleX() - 0.1);
-
-            }
-            if (ninja->getPositionX()>visibleSize.width/2&& touchPos.x<=visibleSize.width/2) {
-                body = world->CreateBody(&bodyDef);
-                fixtureDef.density = 0;
-                body->CreateFixture(&fixtureDef);
-                body->SetGravityScale(12);
-                body->SetLinearVelocity(b2Vec2(-10*_scaleWidth, 40*_scaleHeight));
-                ninja->setScaleX(-1);
-                ninja->setRotation(0);
-                ninja->setAnimation(0, "Jump_Loop", true);
-                _isMovingLeft = true;
-                _isFlying = true;
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_up.mp3");
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Ninja_jump_down.mp3");
-                _isRunning = false;
-                strength->setScaleX(strength->getScaleX() - 0.1);
-
-            }
-            
-
-        }
-    }
+    
     
     
     return true;
@@ -596,10 +580,10 @@ void HelloWorld::setObstacles()
     cocos2d::Sprite * thorns2 = cocos2d::Sprite::create("Chong.png");
     cocos2d::Sprite * cloud_one = cocos2d::Sprite::create("May.png");
     cocos2d::Sprite * cloud_two = cocos2d::Sprite::create("May.png");
-    cocos2d::Sprite * item_one = cocos2d::Sprite::create("circle.png");
+    cocos2d::Sprite * item_one = cocos2d::Sprite::create("ball.jpg");
     cocos2d::Sprite * item_two = cocos2d::Sprite::create("Item.png");
-    bar_one->setAnchorPoint(cocos2d::Point(0,0));
-    bar_two->setAnchorPoint(cocos2d::Point(0,0));
+    bar_one->setAnchorPoint(cocos2d::Point(0,0.5));
+    bar_two->setAnchorPoint(cocos2d::Point(0,0.5));
     item_one->setScale(0.65);
     bar_one->setTag(BAR);
     bar_two->setTag(BAR - 1);
@@ -609,25 +593,30 @@ void HelloWorld::setObstacles()
     cloud_two->setTag(CLOUDS);
     item_one->setTag(ITEM_TWO);
     item_two->setTag(ITEM_ONE);
+    int numType = 2;
     unsigned int type = arc4random() % 8 + numType;
-    //type = 8;
-    FiniteTimeAction* _barRight1 = Sequence::create(MoveBy::create(1.5, Point(visibleSize.width/2, 0)), MoveBy::create(1.5, Point(-visibleSize.width/2, 0)) ,NULL);
-    FiniteTimeAction* _barRight2 = Sequence::create(MoveBy::create(1.5, Point(visibleSize.width/2, 0)), MoveBy::create(1.5, Point(-visibleSize.width/2, 0)) ,NULL);
-    auto moveForRight1 = RepeatForever::create( (ActionInterval*) _barRight1 );
-    auto moveForRight2 = RepeatForever::create( (ActionInterval*) _barRight2 );
-    
-    FiniteTimeAction* _barLeft = Sequence::create(MoveBy::create(1.5, Point(-visibleSize.width/2, 0)), MoveBy::create(1.5, Point(visibleSize.width/2, 0)) ,NULL);
-//    auto moveForLeft1 = RepeatForever::create( (ActionInterval*) _barLeft );
-//    auto moveForLeft2 = RepeatForever::create( (ActionInterval*) _barLeft );
+    //type = 5;
+    float scaleX = (getContentSize().width - 2 * SIZE_WALL_WIDTH - SIZE_SPACE)/bar_one->getContentSize().width;
+    FiniteTimeAction* _barRight1 = Sequence::create(ScaleTo::create(1.25, 1.75*scaleX, SIZE_BAR_HEIGHT / bar_one->getContentSize().height), ScaleTo::create(1.25, scaleX, SIZE_BAR_HEIGHT / bar_one->getContentSize().height) ,NULL);
+    auto scaleForRight1 = RepeatForever::create( (ActionInterval*) _barRight1 );
 
     switch (type) {
         case 4:
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                bar_one->runAction(moveForRight1);
-                bar_two->runAction(moveForRight2);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(Point(visibleSize.width*4/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -658,8 +647,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(visibleSize.width*3/7 ,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -691,8 +690,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             thorns->setRotation(180);
             thorns->setPosition(cocos2d::Point(getContentSize().width - SIZE_WALL_WIDTH - thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
@@ -741,8 +750,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             thorns->setPosition(cocos2d::Point(SIZE_WALL_WIDTH + thorns->getContentSize().width/2, _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(thorns,0);
@@ -790,8 +809,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             if(arc4random()%100 > 75)
             {
@@ -837,8 +866,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             if(arc4random()%100 > 75)
             {
@@ -885,8 +924,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(visibleSize.width*3/7,
                                                   _count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
@@ -915,8 +964,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(visibleSize.width*4/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -944,8 +1003,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(Point(visibleSize.width*3/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -977,8 +1046,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*3/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1041,8 +1120,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*3/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1078,8 +1167,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*4/7,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1113,8 +1212,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1151,8 +1260,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1187,8 +1306,18 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForLeft);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_one->setAnchorPoint(Vec2(1, 0.5));
+                    bar_one->setPositionX(bar_one->getPositionX() + bar_one->getContentSize().width*bar_one->getScaleX());
+                    bar_one->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_two->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1223,8 +1352,18 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_level == 2.5) {
-                //bar_one->runAction(moveForRight);
+            if (_score>10) {
+                int randType = rand() % numType;
+                if (randType == 0) {
+                    bar_two->setAnchorPoint(Vec2(1, 0.5));
+                    bar_two->setPositionX(bar_two->getPositionX() + bar_two->getContentSize().width*bar_two->getScaleX());
+                    bar_two->runAction(scaleForRight1);
+                }
+                if (randType == 1) {
+                    bar_one->runAction(scaleForRight1);
+                    
+                }
+                
             }
             cloud_one->setPosition(cocos2d::Point(getContentSize().width*1/2,_count_wait * visibleSize.height - visibleSize.height/2 - visibleSize.height/3));
             this->addChild(cloud_one,0);
@@ -1269,7 +1408,7 @@ void HelloWorld::setPositionBarLeft(cocos2d::Sprite * bar)
                                     _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
     //bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
-    this->addChild(bar,0);
+    this->addChild(bar, 3);
 }
 void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
 {
@@ -1279,7 +1418,7 @@ void HelloWorld::setPositionBarRight(cocos2d::Sprite * bar)
     bar->setPosition(Point(SIZE_WALL_WIDTH - randX, _count_wait *visibleSize.height - visibleSize.height/2));
     float a = (bar->getPositionY())/visibleSize.height;
     //bar->runAction(MoveTo::create(_level*a, Point(bar->getPositionX(), -200)));
-    this->addChild(bar,0);
+    this->addChild(bar, 3);
 }
 
 void HelloWorld::onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * event)
@@ -1301,7 +1440,7 @@ void HelloWorld::BeginContact(b2Contact *contact){
                 _isClouding = false;
                 jumpTimed = 1;
                 distance = 0;
-                deathPoint = visibleSize.height*0.6;
+                deathPoint = visibleSize.height*0.5;
                 move = 0;
             }
             if (ninja->getPositionX()<visibleSize.width/2&&body->GetLinearVelocity().x<0) {
@@ -1310,7 +1449,7 @@ void HelloWorld::BeginContact(b2Contact *contact){
                 _isClouding = false;
                 jumpTimed = 1;
                 distance = 0;
-                deathPoint = visibleSize.height*0.6;
+                deathPoint = visibleSize.height*0.5;
                 move = 0;
             }
             if (!_isPlaying) {
