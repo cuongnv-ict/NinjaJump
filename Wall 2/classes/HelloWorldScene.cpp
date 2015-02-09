@@ -343,58 +343,7 @@ void HelloWorld::update(float delta)
                         //                    explosion->runAction(ScaleTo::create(0.5, 5));
                     }
                     if (_obstacle.at(i)->getTag() == CLOUDS && _isFlying && !_isClouding) {
-                        _obstacle.at(i)->runAction(Sequence::create(ScaleTo::create(0.1, 1.1), ScaleTo::create(0.1, 1.0), NULL));
-                        jumpTimed = 0;
-                        _isClouding = true;
-                        world->DestroyBody(body);
-                        bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-                        body = world->CreateBody(&bodyDef);
-                        body->SetGravityScale(8);
-                        body->CreateFixture(&fixtureDef);
-                        if(_isMovingLeft){
-                            CCLOG("bbb");
-                            if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
-                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(-15, 25));
-                                }
-                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(-20, 5));
-                                }
-                                ninja->setScaleX(-1);
-                                
-                            }
-                            if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
-                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(15, 25));
-                                }
-                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(20, 5));
-                                }
-                                ninja->setScaleX(1);
-                            }
-                        }
-                        if (!_isMovingLeft) {
-                            if(ninja->getPositionX()<_obstacle.at(i)->getPositionX()){
-                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(-15, 25));
-                                }
-                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(-20, 5));
-                                }
-                                ninja->setScaleX(-1);
-                                
-                            }
-                            if(ninja->getPositionX()>=_obstacle.at(i)->getPositionX()){
-                                if (ninja->getPositionY()>=_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(15, 25));
-                                }
-                                if (ninja->getPositionY()<_obstacle.at(i)->getPositionY()) {
-                                    body->SetLinearVelocity(b2Vec2(20, 5));
-                                }
-                                ninja->setScaleX(1);
-                            }
-                        }
-                        
+                        strength->setScaleX(strength->getScaleX() - 0.01);
                     }
                 }
             }
@@ -589,7 +538,7 @@ void HelloWorld::setObstacles()
     bar_two->setTag(BAR - 1);
     thorns->setTag(OBSTACLES);
     thorns2->setTag(OBSTACLES);
-    cloud_one->setTag(-1);
+    cloud_one->setTag(CLOUDS);
     cloud_two->setTag(CLOUDS);
     item_one->setTag(ITEM_TWO);
     item_two->setTag(ITEM_ONE);
@@ -605,7 +554,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -647,7 +596,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -690,7 +639,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -750,7 +699,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -809,7 +758,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -866,7 +815,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -924,7 +873,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -964,7 +913,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -1003,7 +952,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -1046,7 +995,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -1120,7 +1069,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -1167,7 +1116,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -1212,7 +1161,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -1260,7 +1209,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
@@ -1306,7 +1255,7 @@ void HelloWorld::setObstacles()
             setPositionBarLeft(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() - visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_one->setAnchorPoint(Vec2(1, 0.5));
@@ -1352,7 +1301,7 @@ void HelloWorld::setObstacles()
             setPositionBarRight(bar_one);
             setPositionBarRight(bar_two);
             bar_two->setPositionX(bar_one->getPositionX() + visibleSize.width*5/6);
-            if (_score>10) {
+            if (_score>5) {
                 int randType = rand() % numType;
                 if (randType == 0) {
                     bar_two->setAnchorPoint(Vec2(1, 0.5));
