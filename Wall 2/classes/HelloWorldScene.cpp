@@ -99,7 +99,6 @@ bool HelloWorld::init()
             _menu->setPosition(0, 0);
             this->addChild(_menu, 5);
         }
-        
     }
     //Event Tag Scence
     {
@@ -178,47 +177,40 @@ void HelloWorld::createGameScene(){
     bodyDef.type = b2_dynamicBody;
     bodyDef.userData = ninja;
     bodyDef.position.Set(ninja->getPosition().x/SCALE_RATIO, ninja->getPosition().y/SCALE_RATIO);
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-    closeItem->setPosition(Point(getContentSize().width - closeItem->getContentSize().width/2 - 10,closeItem->getContentSize().height/2 + 10));
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
 }
 void HelloWorld::gameOver(){
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-    closeItem->setPosition(Point(getContentSize().width - closeItem->getContentSize().width/2 - 10,closeItem->getContentSize().height/2 + 10));
-    
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-    auto hiScoreLabel = LabelTTF::create("Hi-Score:", "Arial", 30);
-    hiScoreLabel->setPosition(visibleSize.width/2, visibleSize.height/2);
-    UserDefault *def = UserDefault::getInstance();
-    //def->setIntegerForKey("Classic hi-score", 0);
-    int hiScore = def->getIntegerForKey("Classic", 0);
-    if (hiScore<_score) {
-        auto congrat = LabelTTF::create("You beat the hi-score!!!", "Arial", 35);
-        congrat->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() - congrat->getContentSize().height);
-        this->addChild(congrat);
-        def->setIntegerForKey("Classic", _score);
-        hiScore = _score;
+//    auto hiScoreLabel = LabelTTF::create("Hi-Score:", "Arial", 30);
+//    hiScoreLabel->setPosition(visibleSize.width/2, visibleSize.height/2);
+//    UserDefault *def = UserDefault::getInstance();
+//    //def->setIntegerForKey("Classic hi-score", 0);
+//    int hiScore = def->getIntegerForKey("Classic", 0);
+//    if (hiScore<_score) {
+//        auto congrat = LabelTTF::create("You beat the hi-score!!!", "Arial", 35);
+//        congrat->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() - congrat->getContentSize().height);
+//        this->addChild(congrat);
+//        def->setIntegerForKey("Classic", _score);
+//        hiScore = _score;
+//    }
+//    char str[50]={0};
+//    sprintf(str, "Hi-Score:%d", hiScore);
+//    hiScoreLabel->setString(str);
+//    scoreLabel->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() + scoreLabel->getContentSize().height);
+//    this->addChild(hiScoreLabel);
+//    def->flush();
+    // save Score
+    {
+        UserDefault * user = UserDefault::getInstance();
+        user->setIntegerForKey("score", _score);
+        user->flush();
     }
-    char str[50]={0};
-    sprintf(str, "Hi-Score:%d", hiScore);
-    hiScoreLabel->setString(str);
-    scoreLabel->setPosition(visibleSize.width/2, hiScoreLabel->getPositionY() + scoreLabel->getContentSize().height);
-    this->addChild(hiScoreLabel);
-    def->flush();
-
+    // add menudie
+    {
+        _menu_die = MenuDie::create();
+        _menu_die->setAnchorPoint(Vec2::ZERO);
+        _menu_die->setPosition(0,0);
+        this->addChild(_menu_die,5);
+    }
+   
 }
 void HelloWorld::levelUp(){
     if (_level == 3.5) {
@@ -273,6 +265,25 @@ void HelloWorld::update(float delta)
         ninja->setAnimation(0, "die", false);
         this->gameOver();
         _isDead = true;
+    }
+    if(_isDead)
+    {
+        if(_menu_die->isReplay())
+        {
+            _isDead = false;
+            _menu_die->reset();
+            showMenu = false;
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Game over_bg.mp3");
+            Director::getInstance()->replaceScene(TransitionCrossFade::create(0.1, HelloWorld::createScene()));
+        }
+        if(_menu_die->isHome())
+        {
+            _isDead = false;
+            showMenu = true;
+            _menu_die->reset();
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Game over_bg.mp3");
+            Director::getInstance()->replaceScene(TransitionCrossFade::create(0.1, HelloWorld::createScene()));
+        }
     }
     if (_isPlaying) {
         int sizeObs = (int)_obstacle.size();

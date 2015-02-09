@@ -25,8 +25,16 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		484899591A35A23E00818050 /* ball.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 484899581A35A23E00818050 /* ball.jpg */; };
+		4855F8581A853E4F00E3D8B5 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4855F8571A853E4F00E3D8B5 /* back.png */; };
 		487341B21A30580E007271AD /* tuong.png in Resources */ = {isa = PBXBuildFile; fileRef = 487341B11A30580E007271AD /* tuong.png */; };
 		488261901A796A34006FF673 /* MenuLayer-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4882618F1A796A34006FF673 /* MenuLayer-8.png */; };
+		48A5ADED1A845F200019F324 /* MenuDie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48A5ADEB1A845F200019F324 /* MenuDie.cpp */; };
+		48A5ADF51A846C370019F324 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADF01A846C370019F324 /* 2.png */; };
+		48A5ADF61A846C370019F324 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADF11A846C370019F324 /* 3.png */; };
+		48A5ADF71A846C370019F324 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADF21A846C370019F324 /* 4.png */; };
+		48A5ADF81A846C370019F324 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADF31A846C370019F324 /* 5.png */; };
+		48A5ADF91A846C370019F324 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADF41A846C370019F324 /* 6.png */; };
+		48A5ADFB1A846C890019F324 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 48A5ADFA1A846C890019F324 /* 1.png */; };
 		48D1A43B1A37F302008FC786 /* Full_action.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43A1A37F302008FC786 /* Full_action.plist */; };
 		48D1A43F1A37F30F008FC786 /* Full_action.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D1A43E1A37F30F008FC786 /* Full_action.png */; };
 		48D2F1A31A5C5C5B00A9794B /* Chong.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F1851A5C5C5A00A9794B /* Chong.png */; };
@@ -349,8 +357,17 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		484899581A35A23E00818050 /* ball.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ball.jpg; sourceTree = "<group>"; };
+		4855F8571A853E4F00E3D8B5 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		487341B11A30580E007271AD /* tuong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuong.png; sourceTree = "<group>"; };
 		4882618F1A796A34006FF673 /* MenuLayer-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuLayer-8.png"; sourceTree = "<group>"; };
+		48A5ADEB1A845F200019F324 /* MenuDie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuDie.cpp; sourceTree = "<group>"; };
+		48A5ADEC1A845F200019F324 /* MenuDie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDie.h; sourceTree = "<group>"; };
+		48A5ADF01A846C370019F324 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		48A5ADF11A846C370019F324 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		48A5ADF21A846C370019F324 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		48A5ADF31A846C370019F324 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		48A5ADF41A846C370019F324 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		48A5ADFA1A846C890019F324 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		48D1A43A1A37F302008FC786 /* Full_action.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Full_action.plist; sourceTree = "<group>"; };
 		48D1A43E1A37F30F008FC786 /* Full_action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Full_action.png; sourceTree = "<group>"; };
 		48D2F1831A5C513F00A9794B /* MyDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDefine.h; sourceTree = "<group>"; };
@@ -590,6 +607,8 @@
 				A73F2CEE1A60A6C300BEA90E /* GLES-Render.h */,
 				A73E49861A75DEFE00C88E07 /* MenuScene.cpp */,
 				A73E49871A75DEFE00C88E07 /* MenuScene.h */,
+				48A5ADEB1A845F200019F324 /* MenuDie.cpp */,
+				48A5ADEC1A845F200019F324 /* MenuDie.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -713,6 +732,13 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4855F8571A853E4F00E3D8B5 /* back.png */,
+				48A5ADFA1A846C890019F324 /* 1.png */,
+				48A5ADF01A846C370019F324 /* 2.png */,
+				48A5ADF11A846C370019F324 /* 3.png */,
+				48A5ADF21A846C370019F324 /* 4.png */,
+				48A5ADF31A846C370019F324 /* 5.png */,
+				48A5ADF41A846C370019F324 /* 6.png */,
 				48E7B66A1A7FE7670082AC16 /* skeleton_1.atlas */,
 				48E7B66B1A7FE7670082AC16 /* skeleton_1.json */,
 				48E7B66C1A7FE7670082AC16 /* skeleton_1.png */,
@@ -1044,6 +1070,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A5ADF51A846C370019F324 /* 2.png in Resources */,
 				A7DE6C9A1A6D3917009BD41D /* ban.mp3 in Resources */,
 				A73E49AD1A75E17B00C88E07 /* Layer-7.png in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
@@ -1071,16 +1098,21 @@
 				A7DE6CA01A6D3917009BD41D /* Game over_bg.mp3 in Resources */,
 				A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				48A5ADF71A846C370019F324 /* 4.png in Resources */,
 				A73E49A71A75E17B00C88E07 /* Layer-19.png in Resources */,
 				48D2F1BC1A5C5C5B00A9794B /* Ninja.png in Resources */,
 				A7DE6C9D1A6D3917009BD41D /* day bay.mp3 in Resources */,
+				4855F8581A853E4F00E3D8B5 /* back.png in Resources */,
 				48D2F1A51A5C5C5B00A9794B /* Marker Felt.ttf in Resources */,
+				48A5ADF81A846C370019F324 /* 5.png in Resources */,
+				48A5ADFB1A846C890019F324 /* 1.png in Resources */,
 				48D2F1A41A5C5C5B00A9794B /* Floor.png in Resources */,
 				A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */,
 				48D2F1BE1A5C5C5B00A9794B /* Wall.png in Resources */,
 				A7DE6C9C1A6D3917009BD41D /* Button_menu_on.mp3 in Resources */,
 				A7146EA91A6215DE003D3C45 /* circle.png in Resources */,
 				A73E49AA1A75E17B00C88E07 /* Layer-4.png in Resources */,
+				48A5ADF91A846C370019F324 /* 6.png in Resources */,
 				A73E49A51A75E17B00C88E07 /* Layer-17.png in Resources */,
 				A7DE6CA51A6D3917009BD41D /* Ninja_run.mp3 in Resources */,
 				A73E49A31A75E17B00C88E07 /* Layer-15.png in Resources */,
@@ -1102,6 +1134,7 @@
 				A7DE6CA11A6D3917009BD41D /* ngam muc tieu.mp3 in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				A73E49A81A75E17B00C88E07 /* Layer-2.png in Resources */,
+				48A5ADF61A846C370019F324 /* 3.png in Resources */,
 				A73E49A01A75E17B00C88E07 /* Layer-12.png in Resources */,
 				48D2F1BD1A5C5C5B00A9794B /* Phi-tieu.png in Resources */,
 				48D2F1BB1A5C5C5B00A9794B /* May.png in Resources */,
@@ -1163,6 +1196,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				A73F31A71A60AE3D00BEA90E /* SlotData.c in Sources */,
 				A73F31711A60AE3D00BEA90E /* AnimationState.c in Sources */,
+				48A5ADED1A845F200019F324 /* MenuDie.cpp in Sources */,
 				A73F31991A60AE3D00BEA90E /* SkeletonBounds.c in Sources */,
 				A73E49881A75DEFE00C88E07 /* MenuScene.cpp in Sources */,
 				A786F1D51A827E2F0022135D /* HelloWorldScene.cpp in Sources */,

@@ -13,7 +13,7 @@
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
 USING_NS_CC;
-class MenuScene : public cocos2d::Node
+class MenuScene : public cocos2d::Layer
 {
 public :
     virtual bool init();

@@ -5,6 +5,8 @@
 #include "Box2D/Box2D.h"
 #include "spine/spine-cocos2dx.h"
 #include "MenuScene.h"
+#include "MenuDie.h"
+
 USING_NS_CC;
 using namespace spine;
 using namespace std;
@@ -38,6 +40,7 @@ public:
     CREATE_FUNC(HelloWorld);
 private :
     MenuScene * _menu;
+    MenuDie * _menu_die;
     cocos2d::Sprite * _ball;
     cocos2d::Sprite * _ninja;
     cocos2d::Action * _actionRun;

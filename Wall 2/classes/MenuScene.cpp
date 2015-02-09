@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 bool MenuScene::init()
 {
-    if (!Node::init()) {
+    if (!Layer::init()) {
         return false;
     }
     auto visibleSize = Director::getInstance()->getVisibleSize();
