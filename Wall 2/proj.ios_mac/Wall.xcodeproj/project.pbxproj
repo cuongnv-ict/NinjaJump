@@ -174,6 +174,11 @@
 		A74E8AC91A753E600024A3E6 /* strength.png in Resources */ = {isa = PBXBuildFile; fileRef = A74E8AC81A753E600024A3E6 /* strength.png */; };
 		A7811B281A876E0400737418 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A7811B271A876E0400737418 /* frame.png */; };
 		A786F1D51A827E2F0022135D /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */; };
+		A7D32A791A89BF72007D593B /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D32A751A89BF72007D593B /* score.png */; };
+		A7D32A7A1A89BF72007D593B /* frameScore.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D32A761A89BF72007D593B /* frameScore.png */; };
+		A7D32A7B1A89BF72007D593B /* streng.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D32A771A89BF72007D593B /* streng.png */; };
+		A7D32A7C1A89BF72007D593B /* framestreng.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D32A781A89BF72007D593B /* framestreng.png */; };
+		A7D32A801A89E2F8007D593B /* score.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7D32A7F1A89E2F8007D593B /* score.mp3 */; };
 		A7DE6C991A6D3917009BD41D /* Backgroun_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */; };
 		A7DE6C9A1A6D3917009BD41D /* ban.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8C1A6D3917009BD41D /* ban.mp3 */; };
 		A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */; };
@@ -506,6 +511,11 @@
 		A74D5A201A6A0D9B00752B03 /* floorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floorGreen.png; sourceTree = "<group>"; };
 		A74E8AC81A753E600024A3E6 /* strength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strength.png; sourceTree = "<group>"; };
 		A7811B271A876E0400737418 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frame.png; path = "Ninja game sound/frame.png"; sourceTree = "<group>"; };
+		A7D32A751A89BF72007D593B /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = score.png; sourceTree = "<group>"; };
+		A7D32A761A89BF72007D593B /* frameScore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frameScore.png; sourceTree = "<group>"; };
+		A7D32A771A89BF72007D593B /* streng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = streng.png; sourceTree = "<group>"; };
+		A7D32A781A89BF72007D593B /* framestreng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = framestreng.png; sourceTree = "<group>"; };
+		A7D32A7F1A89E2F8007D593B /* score.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = score.mp3; path = ../score.mp3; sourceTree = "<group>"; };
 		A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Backgroun_music.mp3; sourceTree = "<group>"; };
 		A7DE6C8C1A6D3917009BD41D /* ban.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ban.mp3; sourceTree = "<group>"; };
 		A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Button_menu_off.mp3; sourceTree = "<group>"; };
@@ -736,6 +746,10 @@
 			children = (
 				4855F8571A853E4F00E3D8B5 /* back.png */,
 				48A5ADFA1A846C890019F324 /* 1.png */,
+				A7D32A751A89BF72007D593B /* score.png */,
+				A7D32A761A89BF72007D593B /* frameScore.png */,
+				A7D32A771A89BF72007D593B /* streng.png */,
+				A7D32A781A89BF72007D593B /* framestreng.png */,
 				48A5ADF01A846C370019F324 /* 2.png */,
 				48A5ADF11A846C370019F324 /* 3.png */,
 				48A5ADF21A846C370019F324 /* 4.png */,
@@ -891,6 +905,7 @@
 		A7DE6C8A1A6D3917009BD41D /* Ninja game sound */ = {
 			isa = PBXGroup;
 			children = (
+				A7D32A7F1A89E2F8007D593B /* score.mp3 */,
 				A7DE6C8B1A6D3917009BD41D /* Backgroun_music.mp3 */,
 				A7DE6C8C1A6D3917009BD41D /* ban.mp3 */,
 				A7DE6C8D1A6D3917009BD41D /* Button_menu_off.mp3 */,
@@ -1085,6 +1100,7 @@
 				A7DE6CB81A6DF827009BD41D /* skeleton.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				A7DE6CB71A6DF827009BD41D /* skeleton.json in Resources */,
+				A7D32A791A89BF72007D593B /* score.png in Resources */,
 				488261901A796A34006FF673 /* MenuLayer-8.png in Resources */,
 				48D1A43B1A37F302008FC786 /* Full_action.plist in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
@@ -1100,6 +1116,7 @@
 				A73E49A61A75E17B00C88E07 /* Layer-18.png in Resources */,
 				A7DE6CA01A6D3917009BD41D /* Game over_bg.mp3 in Resources */,
 				A74D5A211A6A0D9B00752B03 /* floorGreen.png in Resources */,
+				A7D32A7C1A89BF72007D593B /* framestreng.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				48A5ADF71A846C370019F324 /* 4.png in Resources */,
 				A73E49A71A75E17B00C88E07 /* Layer-19.png in Resources */,
@@ -1111,10 +1128,12 @@
 				48A5ADFB1A846C890019F324 /* 1.png in Resources */,
 				48D2F1A41A5C5C5B00A9794B /* Floor.png in Resources */,
 				A7DE6C9B1A6D3917009BD41D /* Button_menu_off.mp3 in Resources */,
+				A7D32A7A1A89BF72007D593B /* frameScore.png in Resources */,
 				48D2F1BE1A5C5C5B00A9794B /* Wall.png in Resources */,
 				A7DE6C9C1A6D3917009BD41D /* Button_menu_on.mp3 in Resources */,
 				A7146EA91A6215DE003D3C45 /* circle.png in Resources */,
 				A73E49AA1A75E17B00C88E07 /* Layer-4.png in Resources */,
+				A7D32A7B1A89BF72007D593B /* streng.png in Resources */,
 				48A5ADF91A846C370019F324 /* 6.png in Resources */,
 				A73E49A51A75E17B00C88E07 /* Layer-17.png in Resources */,
 				A7DE6CA51A6D3917009BD41D /* Ninja_run.mp3 in Resources */,
@@ -1157,6 +1176,7 @@
 				48E7B66E1A7FE7670082AC16 /* skeleton_1.json in Resources */,
 				A73E49AF1A75E17B00C88E07 /* Layer-9.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				A7D32A801A89E2F8007D593B /* score.mp3 in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

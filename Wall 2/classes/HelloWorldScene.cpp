@@ -127,19 +127,25 @@ bool HelloWorld::init()
     return true;
 }
 void HelloWorld::createGameScene(){
-    auto frame = Sprite::create("floorBlue.png");
-    frame->setScaleY(0.15);
-    frame->setPosition(visibleSize.width/2, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY());
+    auto frame = Sprite::create("frameScore.png");
+    frame->setScale(0.4);
+    frame->setPosition(frame->getContentSize().width/2*frame->getScale() + 20, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY() - 50);
     this->addChild(frame, 4);
-    scoreLabel = LabelTTF::create("Score:", "Arial", 24);
-    scoreLabel->setPosition(visibleSize.width/2, visibleSize.height - scoreLabel->getContentSize().height);
+    scoreLabel = LabelTTF::create("0", "Arial", 40);
+    scoreLabel->setColor(cocos2d::Color3B(0,0,0));
+    scoreLabel->setPosition(frame->getPosition());
     this->addChild(scoreLabel, 4);
+    auto frameStrength = Sprite::create("framestreng.png");
+    frameStrength->setScale(0.4);
+    frameStrength->setPosition(frame->getPositionX() + frameStrength->getContentSize().width/2*frameStrength->getScale() + 40, frame->getPositionY());
     strength = Sprite::create("strength.png");
-    strength->setPosition(visibleSize.width/2 - strength->getContentSize().width/2, visibleSize.height*14/15);
+    strength->setPosition(frameStrength->getPositionX() - strength->getContentSize().width/2*1.01, frameStrength->getPositionY());
     strength->setOpacity(160);
-    strength->setAnchorPoint(Point(0,1));
+    strength->setAnchorPoint(Point(0,0.5));
     strength->setScaleX(1.01f);
+    this->addChild(frameStrength, 4);
     this->addChild(strength, 4);
+
     numType = 0;
     _obstacle.clear();
     startPoint = 0;
@@ -237,7 +243,7 @@ void HelloWorld::levelUp(){
 void HelloWorld::update(float delta)
 {
     char str[50]={0};
-    sprintf(str, "Score:%d", _score);
+    sprintf(str, "%d", _score);
     scoreLabel->setString(str);
     if (_upLevelWait > 0) {
         _upLevelWait --;
@@ -299,6 +305,9 @@ void HelloWorld::update(float delta)
                 if (_obstacle.at(i)->getTag() == BAR && _obstacle.at(i)->getPositionY() < visibleSize.height*0.5) {
                     _obstacle.at(i)->setTag(BAR - 1);
                     _score ++;
+                    scoreLabel->runAction(Sequence::create(ScaleTo::create(0.2, 3.0), ScaleTo::create(0.1, 1.0), NULL));
+                    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("score.mp3");
+
                 }
                 if (move >=0) {
                     _obstacle.at(i)->setPositionY(_obstacle.at(i)->getPositionY() - move);
@@ -369,7 +378,8 @@ void HelloWorld::update(float delta)
             
         }
         ninja->setBonesToSetupPose();
-        ninja->setAnimation(0, "Slide", false);
+        ninja->setScaleX(ninja->getScaleX()*-1);
+        ninja->setAnimation(0, "Slide 2", false);
         _isRunning = true;
         existBall = false;
     }
