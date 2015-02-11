@@ -1356,6 +1356,18 @@
 					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/RevMob/SDK",
 					/Users/Applehouse/NinjaJump/Wall,
 					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/VungleSDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Adcolony/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Millennial/SDK4.3.0",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/RevMob/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/VungleSDK",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1382,6 +1394,16 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/GoogleConversionTrackingSDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/CleverNET",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/InMobi/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/StartAppInApp-2.1.1",
 					/Users/Applehouse/NinjaJump/Wall,
 					"2/classes/MOPUB-IOS-SDK/GoogleConversionTrackingSDK",
 					/Users/Applehouse/NinjaJump/Wall,
@@ -1420,6 +1442,18 @@
 					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/RevMob/SDK",
 					/Users/Applehouse/NinjaJump/Wall,
 					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/VungleSDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Adcolony/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Chartboost/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/Millennial/SDK4.3.0",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/RevMob/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/VungleSDK",
 				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1438,6 +1472,16 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/GoogleConversionTrackingSDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/CleverNET",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/InMobi/SDK",
+					/Users/Applehouse/NinjaJump/Wall,
+					"2/classes/MOPUB-IOS-SDK/MoPubSDK/AdNetworkSupport/StartAppInApp-2.1.1",
 					/Users/Applehouse/NinjaJump/Wall,
 					"2/classes/MOPUB-IOS-SDK/GoogleConversionTrackingSDK",
 					/Users/Applehouse/NinjaJump/Wall,

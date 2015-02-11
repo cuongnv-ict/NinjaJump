@@ -26,7 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     auto screenSize = glview->getFrameSize();
-    glview->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_HEIGHT);
+    glview->setDesignResolutionSize(640, 960, ResolutionPolicy::EXACT_FIT);
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
 
