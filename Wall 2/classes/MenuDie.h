@@ -10,6 +10,7 @@
 #define __Wall__MenuDie__
 
 #include "cocos2d.h"
+#include "../extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 
 #define SPACE 20
 #define SIZE 100
@@ -42,7 +43,7 @@ private:
     cocos2d::LabelTTF * _game_over;
     bool _ishome,_isreplay;
     cocos2d::Sprite * _best;
-    cocos2d::Sprite * _background;
+    cocos2d::extension::Scale9Sprite * _background;
     cocos2d::Sprite * _back;
     cocos2d::Menu * _menu;
 };

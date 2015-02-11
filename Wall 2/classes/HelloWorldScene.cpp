@@ -129,15 +129,15 @@ bool HelloWorld::init()
 void HelloWorld::createGameScene(){
     auto frame = Sprite::create("frameScore.png");
     frame->setScale(0.4);
-    frame->setPosition(frame->getContentSize().width/2*frame->getScale() + 20, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY() - 50);
+    frame->setPosition(frame->getContentSize().width/2*frame->getScale() + 20, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY()-10);
     this->addChild(frame, 4);
-    scoreLabel = LabelTTF::create("0", "Arial", 40);
+    scoreLabel = LabelTTF::create("0", "Marker Felt", 40);
     scoreLabel->setColor(cocos2d::Color3B(0,0,0));
     scoreLabel->setPosition(frame->getPosition());
     this->addChild(scoreLabel, 4);
     auto frameStrength = Sprite::create("framestreng.png");
     frameStrength->setScale(0.4);
-    frameStrength->setPosition(frame->getPositionX() + frameStrength->getContentSize().width/2*frameStrength->getScale() + 40, frame->getPositionY());
+    frameStrength->setPosition(10+frame->getPositionX() + frameStrength->getContentSize().width/2*frameStrength->getScale() + 40, frame->getPositionY());
     strength = Sprite::create("strength.png");
     strength->setPosition(frameStrength->getPositionX() - strength->getContentSize().width/2*1.01, frameStrength->getPositionY());
     strength->setOpacity(160);
@@ -419,8 +419,8 @@ void HelloWorld::addWall(float w, float h, float px, float py){
     b2BodyDef floorBodyDef;
     floorBodyDef.position.Set(px/ SCALE_RATIO,py/ SCALE_RATIO);
     floorBodyDef.userData = wallRight;
-    b2Body *floorBody = world->CreateBody(&floorBodyDef);
-    floorBody->CreateFixture(&floorFixture);
+    b2Body *floorBodyoc = world->CreateBody(&floorBodyDef);
+    floorBodyoc->CreateFixture(&floorFixture);
 }
 
 float HelloWorld::radomValueBetween(float low,float height)
