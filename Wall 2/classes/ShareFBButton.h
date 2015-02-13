@@ -16,6 +16,7 @@ class ShareFBButton
 public:
     static void shareFB(int typeShare);
     static void shareTwitter();
+    static void urlOpen();
 };
 
 #endif /* defined(__SoftTest__ShareFBButton__) */

@@ -112,6 +112,10 @@ void ShareFBButton::shareFB(int typeShare)
         CCLOG(" chua dang nhap mac dinh ");
     }
 }
+void ShareFBButton::urlOpen()
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"]];
+}
 void ShareFBButton::shareTwitter()
 {
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])

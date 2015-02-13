@@ -38,9 +38,6 @@
 		48E7B66D1A7FE7670082AC16 /* skeleton_1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 48E7B66A1A7FE7670082AC16 /* skeleton_1.atlas */; };
 		48E7B66E1A7FE7670082AC16 /* skeleton_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 48E7B66B1A7FE7670082AC16 /* skeleton_1.json */; };
 		48E7B66F1A7FE7670082AC16 /* skeleton_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 48E7B66C1A7FE7670082AC16 /* skeleton_1.png */; };
-		48F4FE381A8E47B1007AEE41 /* ZYWebView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48F4FE341A8E47B1007AEE41 /* ZYWebView.cpp */; };
-		48F4FE3F1A8E47B1007AEE41 /* ZYWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 48F4FE3C1A8E47B1007AEE41 /* ZYWebView.mm */; };
-		48F4FE401A8E47B1007AEE41 /* ZYWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 48F4FE3E1A8E47B1007AEE41 /* ZYWebView_iOS.mm */; };
 		48F61D231A8A7C0C00A547FF /* dis_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F61D1B1A8A7C0C00A547FF /* dis_home.png */; };
 		48F61D241A8A7C0C00A547FF /* dis_rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F61D1C1A8A7C0C00A547FF /* dis_rank.png */; };
 		48F61D251A8A7C0C00A547FF /* dis_rate.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F61D1D1A8A7C0C00A547FF /* dis_rate.png */; };
@@ -384,11 +381,6 @@
 		48E7B66A1A7FE7670082AC16 /* skeleton_1.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skeleton_1.atlas; sourceTree = "<group>"; };
 		48E7B66B1A7FE7670082AC16 /* skeleton_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skeleton_1.json; sourceTree = "<group>"; };
 		48E7B66C1A7FE7670082AC16 /* skeleton_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton_1.png; sourceTree = "<group>"; };
-		48F4FE341A8E47B1007AEE41 /* ZYWebView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZYWebView.cpp; sourceTree = "<group>"; };
-		48F4FE351A8E47B1007AEE41 /* ZYWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWebView.h; sourceTree = "<group>"; };
-		48F4FE3C1A8E47B1007AEE41 /* ZYWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYWebView.mm; sourceTree = "<group>"; };
-		48F4FE3D1A8E47B1007AEE41 /* ZYWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWebView_iOS.h; sourceTree = "<group>"; };
-		48F4FE3E1A8E47B1007AEE41 /* ZYWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYWebView_iOS.mm; sourceTree = "<group>"; };
 		48F61D1B1A8A7C0C00A547FF /* dis_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dis_home.png; sourceTree = "<group>"; };
 		48F61D1C1A8A7C0C00A547FF /* dis_rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dis_rank.png; sourceTree = "<group>"; };
 		48F61D1D1A8A7C0C00A547FF /* dis_rate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dis_rate.png; sourceTree = "<group>"; };
@@ -633,10 +625,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				48F4FE3B1A8E47B1007AEE41 /* ios */,
 				A73F316E1A60AE3D00BEA90E /* spine */,
-				48F4FE341A8E47B1007AEE41 /* ZYWebView.cpp */,
-				48F4FE351A8E47B1007AEE41 /* ZYWebView.h */,
 				480E6AE21A8C4BCA003392AA /* ShareFBButton.h */,
 				480E6AE31A8C4BCA003392AA /* ShareFBButton.mm */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
@@ -732,16 +721,6 @@
 				48D2F1881A5C5C5A00A9794B /* Marker Felt.ttf */,
 			);
 			path = fonts;
-			sourceTree = "<group>";
-		};
-		48F4FE3B1A8E47B1007AEE41 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				48F4FE3C1A8E47B1007AEE41 /* ZYWebView.mm */,
-				48F4FE3D1A8E47B1007AEE41 /* ZYWebView_iOS.h */,
-				48F4FE3E1A8E47B1007AEE41 /* ZYWebView_iOS.mm */,
-			);
-			path = ios;
 			sourceTree = "<group>";
 		};
 		503AE0F517EB97AB00D1A890 /* Icons */ = {
@@ -1246,7 +1225,6 @@
 				A73F319F1A60AE3D00BEA90E /* SkeletonRenderer.cpp in Sources */,
 				A73F318D1A60AE3D00BEA90E /* Json.c in Sources */,
 				A73F31871A60AE3D00BEA90E /* extension.c in Sources */,
-				48F4FE3F1A8E47B1007AEE41 /* ZYWebView.mm in Sources */,
 				A73F31851A60AE3D00BEA90E /* EventData.c in Sources */,
 				480E6AE41A8C4BCA003392AA /* ShareFBButton.mm in Sources */,
 				A73F319D1A60AE3D00BEA90E /* SkeletonJson.c in Sources */,
@@ -1254,7 +1232,6 @@
 				A73F31731A60AE3D00BEA90E /* AnimationStateData.c in Sources */,
 				A73F319B1A60AE3D00BEA90E /* SkeletonData.c in Sources */,
 				A73F318B1A60AE3D00BEA90E /* IkConstraintData.c in Sources */,
-				48F4FE381A8E47B1007AEE41 /* ZYWebView.cpp in Sources */,
 				A73F31A31A60AE3D00BEA90E /* SkinnedMeshAttachment.c in Sources */,
 				A73F317B1A60AE3D00BEA90E /* AttachmentLoader.c in Sources */,
 				A73F31811A60AE3D00BEA90E /* BoundingBoxAttachment.c in Sources */,
@@ -1274,7 +1251,6 @@
 				A73F31951A60AE3D00BEA90E /* Skeleton.c in Sources */,
 				A73F317F1A60AE3D00BEA90E /* BoneData.c in Sources */,
 				A73F316F1A60AE3D00BEA90E /* Animation.c in Sources */,
-				48F4FE401A8E47B1007AEE41 /* ZYWebView_iOS.mm in Sources */,
 				A73F317D1A60AE3D00BEA90E /* Bone.c in Sources */,
 				A73F31A11A60AE3D00BEA90E /* Skin.c in Sources */,
 				A74499D11A8BC56700189235 /* Reachability.m in Sources */,
