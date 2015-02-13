@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
+		<key>Wall.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>box2d Mac.xcscheme</key>
 		<dict>
 			<key>orderHint</key>

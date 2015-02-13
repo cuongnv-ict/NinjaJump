@@ -1,0 +1,36 @@
+/********************
+Quick help by hieplm
+Last update: 16-07-14
+*********************/
+
+Set up vdconfignotification framework
+1. Import folder VDFramework (including VDUI folder)
+2. Add #import "VDConfigNotification.h" at AppDelegate.h
+3. Khai báo delegate: VDConfigNotificationDelegate
+3. At application: didFinishLaunchingWithOptions: , add this implementation part
+	
+    g_vdConfigNotification = nil;
+    g_vdConfigNotification = [[VDConfigNotification alloc] initWithProductType:PT_FREE];
+    g_vdConfigNotification.shouldShowNotificationWhenOpenApp = YES;
+    g_vdConfigNotification.delegate = self;
+    [g_vdConfigNotification setPopupStyle:POPUP_STYLE_SLICEFROMBOTTOM];
+    [g_vdConfigNotification setCleverNetAdZoneID:@"7a266402ce2c1f100849c6f6c6a9b648"];
+
+*Chú ý: shouldShowNotificationWhenOpenApp = YES : mỗi lần bật APP thì VDFramework tự động gọi hàm showPopUpNotifications 1 lần.
+set lại shouldShowNotificationWhenOpenApp = YES để tắt tính năng tự động này.
+4. Release g_vdConfigNotification in dealloc if App is non-ARC.
+
+5. Run in Debug mode, watch on output log to make sure app config is downloaded from sever.
+=========================
+* Sử dụng:
+- Mỗi lần có sự kiện có thể hiện Pop-up thì gọi hàm: showPopUpNotifications, biến counter sẽ được tăng thêm 1, tuỳ thuộc vào cấu hình trên server sẽ quyết định Pop-up Notification có hiện hay không.
+- Nếu muốn gọi Pop-up Notification hiển thị ngay mà không xét đến các cấu hình server, thì gọihàm: forceToShowPopUpNotifications
+=========================
+Chú ý:
+1. Trong cấu hình trả về từ mạng sẽ liệt kê ra các App để quảng cáo pop-up, trong đó có cả các app của công ty.
+Cần check để 
+Đường dẫn đến file ảnh icon của các App là: http://deltago.com/notifications/adv/public/upload/images/
+2. Trường hợp App tự hiển thị/ quảng lí hiển thị pop-up ad, thì cần khai báo hàm sau trong delegate của VDConfigNotificationDelegate:
+    - (void)VDConfigNotification:(VDConfigNotification *)vdConfigNotification showNotificationWithInfo:(NSDictionary *)dictNotifyInfo;
+    
+Khi đó, quảng cáo pop-up không tự bật như trước mà sẽ truyền thông tin dictNotifyInfo cho delegate để quản lí.

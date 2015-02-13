@@ -7,8 +7,7 @@
 //
 
 #include "MenuDie.h"
-#include "ShareFBButton.h";
-#include "ZYWebView.h"
+#include "ShareFBButton.h"
 
 bool MenuDie::init()
 {
