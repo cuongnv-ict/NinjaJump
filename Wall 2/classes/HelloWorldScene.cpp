@@ -131,7 +131,7 @@ void HelloWorld::createGameScene(){
     frame->setScale(0.4);
     frame->setPosition(frame->getContentSize().width/2*frame->getScale() + 20, visibleSize.height - frame->getContentSize().height/2*frame->getScaleY()-10);
     this->addChild(frame, 4);
-    scoreLabel = LabelTTF::create("0", "Marker Felt", 40);
+    scoreLabel = LabelTTF::create("99", "Marker Felt", 40);
     scoreLabel->setColor(cocos2d::Color3B(0,0,0));
     scoreLabel->setPosition(frame->getPosition());
     this->addChild(scoreLabel, 4);

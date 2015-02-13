@@ -12,6 +12,9 @@
 #include "cocos2d.h"
 #include "../extensions/GUI/CCControlExtension/CCScale9Sprite.h"
 
+//#include "UIWebViewTest.h"
+//#include "c"
+
 #define SPACE 20
 #define SIZE 100
 USING_NS_CC;
@@ -46,5 +49,6 @@ private:
     cocos2d::extension::Scale9Sprite * _background;
     cocos2d::Sprite * _back;
     cocos2d::Menu * _menu;
+//    cocos2d::experimental::ui::WebView * web;
 };
 #endif /* defined(__Wall__MenuDie__) */

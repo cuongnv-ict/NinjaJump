@@ -7,7 +7,8 @@
 //
 
 #include "MenuDie.h"
-
+#include "ShareFBButton.h";
+#include "ZYWebView.h"
 bool MenuDie::init()
 {
     if(!Layer::init())
@@ -140,7 +141,11 @@ void MenuDie::menuHome(cocos2d::Ref *pSender)
 }
 void MenuDie::menuMoreGame(cocos2d::Ref *pSender)
 {
-  
+    ZYWebView * web = new ZYWebView();
+    web->init();
+    web->showWebView("https://www.google.com/", 0, 0, Director::getInstance()->getVisibleSize().width, Director::getInstance()->getVisibleSize().height);
+//    ZYWebView_iOS web;
+    
 }
 void MenuDie::menuRank(cocos2d::Ref *pSender)
 {
@@ -148,7 +153,8 @@ void MenuDie::menuRank(cocos2d::Ref *pSender)
 }
 void MenuDie::menuShare(cocos2d::Ref *pSender)
 {
-    
+    ShareFBButton* share;
+    share->shareFB(0);
 }
 void MenuDie::menuReplay(cocos2d::Ref *pSender)
 {
